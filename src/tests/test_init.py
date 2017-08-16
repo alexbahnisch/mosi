@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from mosi import mosi
+from mosi import message
 
 
 # TODO - remove this test once real unit tests exist
