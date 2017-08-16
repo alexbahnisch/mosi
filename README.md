@@ -1,2 +1,2 @@
 # mosi.py
-Modelling &amp; Optimization Solver Interface (MOSI).
+Modelling & Optimization Solver Interface (MOSI).
