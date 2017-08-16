@@ -17,9 +17,11 @@ notifications:
 deploy:
   provider: pypi
   distributions: sdist bdist_wheel
-  server: https://testpypi.python.org/pypi
+  server: https://test.pypi.org/legacy/
   user: alexbahnisch
   password:
     secure: KcDt/YIpCNo15AC/+llo6eV4bDo4jyT6SwmCO/lt9mrMfTzDFHJmRYlrKQq/z1YRdwLiX50Zwt/8/+CvAgVft3d/wLn98y1tbBVNJ9wL2i3ZZoHFD2f5onbsJu6DupGsYadY5bn60+VMeaAyTpQ3/JCDpUV5KehfnQZulOO2IhnMPY45IOGqVKJUmT6oX54AsLNNVac/J/deN5gpeRPva/ptsLn2PNVMTulqjkDquvPLQBcb4I99dvNsQvyU8kMNj+xUZ3M9Wc9H/5zyk8eD1AgpwD+XVoM2psl4xucTGxaADDIjPsj7zbK6lKyhncnlFqIubGE/M46MzpeDbMmvpC5qxtU2nGyae5beE+zEYW2ZLlPKTmSlwFez3YWRhofnr+LBZ2ZC1jgdKrFn+PFxyqfY8ghv6MSn7Bs0cKtUJFm+cFVYeunjTNfJVQzzUW+QPysgTH8xMcxGEHQyqa3TXosVOxAm3+RupDARJOPng5t0s8zbb8FZobHZR++eLAdRDLlUO0nTD41gTfZxVK15rOWFKfXggwYfxXcZWJzS5N4ts72CcHKatqRQf8XPeU6ALGO7eke/178K42LWSOHYOvGAdWNAqKeVULCdNl/apWamAbISha74ZM2JDATC5MXcWKZA9r43X0VYLs/hPX9wih/+4Vw5IXsXZEgtspwpFrs=
   on:
     branch: master
+    tags: false
+    condition: $TRAVIS_PYTHON_VERSION = "2.7"
