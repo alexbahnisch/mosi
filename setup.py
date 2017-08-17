@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="mosi",
-    version="0.0.1",
+    version="0.0.1.dev0",
     description="Modelling & Optimization Solver Interface (MOSI).",
     url="https://github.com/alexbahnisch/mosi.py",
     author="Alex Bahnisch",
@@ -31,8 +31,7 @@ setup(
     ],
     setup_requires=[
         "pytest-runner>=2.11.1",
-        "tox>=2.7.0",
-        "twine>=1.9.1"
+        "tox>=2.7.0"
     ],
     tests_require=[
         "pytest>=3.1.3"
