@@ -1,3 +1,5 @@
+dist: trusty
+
 sudo: false
 
 language: python
@@ -19,6 +21,7 @@ notifications:
 deploy:
   provider: pypi
   server: https://test.pypi.org/legacy/
+  skip_upload_docs: true
   user: alexbahnisch
   password:
     secure: K9R5L4ToiFfYouBgCYQ41eAIftUQGc1kWnw58HabD9kV5dg+YOwG1k/vraGGilLoINOI8klxEK96knzIc4wSMrZVTB4nFK1VJIFxKx8dioRdmGLPgGpl54SO/vYU3ws/bHbO2mUnpnZ403Ut9u0BnNfEktGMkz+VeSyAd4i2Zbc8K9QWOXHA+3JZc1F+IMtgNhfYbkvGHgDmoeY01PHhmvBDEWTQNOWeivtQmsvzYFa2TSN0cE7EgBF8Fr6MFygvF4bmhAh51E7n5KjpKOLCU9GUxJO6OJ7a58LneFaU3iyXvtSVZZOnYXV7JzuzUFseQJxQqyWcTNeUHwwwAsTFw0KpmU9L8rLsf7u+IsqdFVo779C9zzmA+gUc8tXpGiTMKEN89c0PWZs19gOLMO0Q+rHBj0hugWafx+g54NO7lLaW29RClctHacodnU1fVhrvzYz5BqjyMQt/AlUHHKAS6LP9+udPEuoh8+0UiqWu+olU3e/zr3ETuV+hTpTKnLMD+wEgUCdzozVR+Miy6TLEZJx+1nxB/XA9SGAw2Q/d+tZhDWYgbcebZWmfh0Hh6la5aCVAqSUlg00QEQ8otDLWpvOKYcO3ki8m+lKqgJjQmlQyXPvYDZjtEdD1BFRH24tA9xkUEx0TGZX0Ci9jorQZFZiCfjpOwoSxbEAkKQWwAs0=
