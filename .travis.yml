@@ -1,7 +1,3 @@
-dist: trusty
-
-sudo: false
-
 language: python
 
 python:
@@ -22,7 +18,8 @@ deploy:
   provider: pypi
   server: https://test.pypi.org/legacy/
   user: alexbahnisch
-  password: passwordpassword
+  password:
+    secure: HvqXkLvZX27rzyqShQqwRe+wwb0bkY0AT+3nZnBD9pZJ2Cg1MFEZBApiWK3wbXw/yAbDNizTB1MKmzO0xjudL6rU3INlGiS+7acoqdK0bHnZsbaaT7bmyby/ruR3Aw1sYEB8nQeO3gbko3ZQvVBXK2KNSDMWBDHq2YPdoLC6yE/Rbswsg5h7gQydAyA5/bDVIweNvxfN3mJXKTVoKLmPwKGL+i5y1ymXemlFSQzKgxw6TQRgiQ6eJ/u4pAlaXqPPG5BlXnbnEnHXlC3Or/k2ZssNshztkNlgB++VPd8MlTOWmyos4MTmqREdG5hvEvMC63TfhQk2WQ0gHx4Es04rnUa85R/5RF8kOIKM4QnQ8nALzyQjD4Vge75guhlW4oNjPesgeAvDzmz8/0Kg8qylSFcf25h3QrrgrVIMNed4NHzamumyy03I+YkrX56fpLOy2pg0KJC9Ye36mRHVODxkl7ios9vBGIpfqLqxakR6osTZJbCKGxtgAYreKVNiE6neU2YBYu6Xl635vxv9R2dY8elDo+0mKiIB+VmpwFXlmhx1yFUTkav0Jp4rztLPDv/mG4iedazfHPUb4nOTOZHz7XmL2lhp8oEpjHwjRtOP5QV8A7ZpZqS9ww2Pg0xjS+GvTth2uerzd67FJWVOdxcgbbGbIjduyqsGc4L8MJWG5ME=
   distributions: sdist bdist_wheel
   on:
     branch: master
