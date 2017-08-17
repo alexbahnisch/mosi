@@ -1,17 +1,15 @@
-#sudo: false
-
 language: python
 
 python:
-  - 2.7
-  - 3.5
-  - 3.6
+- 2.7
+- 3.5
+- 3.6
 
 install:
-  - pip install tox-travis
+- pip install tox-travis
 
 script:
-  - tox
+- tox
 
 notifications:
   email: true
@@ -21,9 +19,8 @@ deploy:
   server: https://test.pypi.org/legacy/
   user: alexbahnisch
   password:
-    secure: 4ehaewZzYT/XQhFnDotr03k1QhrdA5TZ87CH1Urs3trV44LnUnSUGnRI2UsAQfJRx5z4ogjKbbP0cqV7W2xPZ7HKBS2PXdkAhQhFRRNF9/AWmgTuBP2U7iW+IRvz94xEqxnARAgxY+oNJtbBIksDfRZIsM2Sv+rlaRquyBYKJku5Iwp7wocrRWmyxSOFf9yHOASMesJ8gLpN0PA6oCYyOG9JzT2dAUcHvk62C4w/smtrumHRQf7xAAR7bbhT7/KPRSAKeXhtbnsjFBvrzluXGUPBKfA/KGvXbJl1ppFnLr3bZOL71bb4N9Py0T5K2ug9trbjEEPNaBN4/eiG+jZKp/ik62h5Pu/kqkvs0wBijE8w57NjNfIxLxxD9wrrSo8T6MHcbdYKE3vYkq9rFysLW23lbZbnb+2Y5QzKbcusF3TSK+BQKO3LRY+JW1Gdmm0d3GGXJ+dEuMWQTub3EbEd+AaGXKUPQrAmVKAcYVeh1fKlUV/gEJVjvameoeyw38pSdoPAB+Ue1X3XfVlO/ajB/E3UV8ILlW1CDhsDmh1UiE0rLixTsumBcBidUsTDHremB+8I1DSOMRxELFKMWmWlG/1+o3XtxY7wJll0MXJRquIG9BYxGy9XxXiEPTN4ntLToBEV5ZA14drf0zkIzQCHEnu0624zcOnpMJYQyuQqfKc=
+    secure: K9R5L4ToiFfYouBgCYQ41eAIftUQGc1kWnw58HabD9kV5dg+YOwG1k/vraGGilLoINOI8klxEK96knzIc4wSMrZVTB4nFK1VJIFxKx8dioRdmGLPgGpl54SO/vYU3ws/bHbO2mUnpnZ403Ut9u0BnNfEktGMkz+VeSyAd4i2Zbc8K9QWOXHA+3JZc1F+IMtgNhfYbkvGHgDmoeY01PHhmvBDEWTQNOWeivtQmsvzYFa2TSN0cE7EgBF8Fr6MFygvF4bmhAh51E7n5KjpKOLCU9GUxJO6OJ7a58LneFaU3iyXvtSVZZOnYXV7JzuzUFseQJxQqyWcTNeUHwwwAsTFw0KpmU9L8rLsf7u+IsqdFVo779C9zzmA+gUc8tXpGiTMKEN89c0PWZs19gOLMO0Q+rHBj0hugWafx+g54NO7lLaW29RClctHacodnU1fVhrvzYz5BqjyMQt/AlUHHKAS6LP9+udPEuoh8+0UiqWu+olU3e/zr3ETuV+hTpTKnLMD+wEgUCdzozVR+Miy6TLEZJx+1nxB/XA9SGAw2Q/d+tZhDWYgbcebZWmfh0Hh6la5aCVAqSUlg00QEQ8otDLWpvOKYcO3ki8m+lKqgJjQmlQyXPvYDZjtEdD1BFRH24tA9xkUEx0TGZX0Ci9jorQZFZiCfjpOwoSxbEAkKQWwAs0=
   distributions: sdist bdist_wheel
   on:
     branch: master
     tags: false
-    python: 3.6
