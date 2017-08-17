@@ -1,22 +1,29 @@
+#sudo: false
+
 language: python
+
 python:
-- 2.7
-- 3.5
-- 3.6
+  - 2.7
+  - 3.5
+  - 3.6
+
 install:
-- pip install tox-travis
+  - pip install tox-travis
+
 script:
-- tox
+  - tox
+
 notifications:
   email: true
+
 deploy:
   provider: pypi
-  distributions: sdist bdist_wheel
   server: https://test.pypi.org/legacy/
   user: alexbahnisch
   password:
-    secure: 0sePx9yKkUnjodNKrQ1LMSOGrtd8DYeckuERgcVnsm7M712+mDWxOy2lAHQhV+HNHH8fMIZojg6V+QL4kKagEQnecL8re3LcU+a+Mq4YGtNoT9f0CajEqo7LBh7R06+PsydZTZ3WIec6C7zSgBMecp6Wwv5D29PgR7j4tAUrOD3c8zRL9sfsnMHaXZOmOnGQP67qzC7LbtQCR9qH4HFZMzSlEax0VTLfH9E8GhMUQVALJCY+szZugeS1nfzXzeHS37VNNW1cqv7RakB19qabbrhTO28hbETBeLlrhfKzo9nUjtBG6vdms1WN9zihPWkpWcrmGSeN65o1kUNGeaFNCD/1CIq4uQ1ljeTWNPdZu5lSDunW51jTGK0Bbg0ZNw+RAEIOAJbaqSSuvWGROF6kfVhUPZxDdzbqqrBQjglyDkoZLo5Utdovs/YW4AjTpyC9kjjk0ucZX+dDO/zkbRbFxG8GMViH4vJj3mpWpDIgNioxlsr0bpdCWU5pSRkdzVP/LOXtMOO6yXhrFNBCDqE30kdg1ga8/p4gq8phpa+v9xqvcHqGF0u/muzXIiEfDHIrkykodj03XqaEgtBWhHswY2g+K5dMz1EWGjcJc4JE6BQzuiE8IebXdR8Cu/IzB3dujIYvNjpiFXSS9FS4cF0Z5GW8Owr4BdbwDlmPRwSbhS0=
+    secure: 4ehaewZzYT/XQhFnDotr03k1QhrdA5TZ87CH1Urs3trV44LnUnSUGnRI2UsAQfJRx5z4ogjKbbP0cqV7W2xPZ7HKBS2PXdkAhQhFRRNF9/AWmgTuBP2U7iW+IRvz94xEqxnARAgxY+oNJtbBIksDfRZIsM2Sv+rlaRquyBYKJku5Iwp7wocrRWmyxSOFf9yHOASMesJ8gLpN0PA6oCYyOG9JzT2dAUcHvk62C4w/smtrumHRQf7xAAR7bbhT7/KPRSAKeXhtbnsjFBvrzluXGUPBKfA/KGvXbJl1ppFnLr3bZOL71bb4N9Py0T5K2ug9trbjEEPNaBN4/eiG+jZKp/ik62h5Pu/kqkvs0wBijE8w57NjNfIxLxxD9wrrSo8T6MHcbdYKE3vYkq9rFysLW23lbZbnb+2Y5QzKbcusF3TSK+BQKO3LRY+JW1Gdmm0d3GGXJ+dEuMWQTub3EbEd+AaGXKUPQrAmVKAcYVeh1fKlUV/gEJVjvameoeyw38pSdoPAB+Ue1X3XfVlO/ajB/E3UV8ILlW1CDhsDmh1UiE0rLixTsumBcBidUsTDHremB+8I1DSOMRxELFKMWmWlG/1+o3XtxY7wJll0MXJRquIG9BYxGy9XxXiEPTN4ntLToBEV5ZA14drf0zkIzQCHEnu0624zcOnpMJYQyuQqfKc=
+  distributions: sdist bdist_wheel
   on:
     branch: master
     tags: false
-    condition: $TRAVIS_PYTHON_VERSION = "2.7"
+    python: 3.6
