@@ -18,8 +18,7 @@ deploy:
   provider: pypi
   server: https://test.pypi.org/legacy/
   user: alexbahnisch
-  password:
-    secure: 16PZXQvHH4QJRvChSONtsYkU5DXNI46Q77z6HUYBJ5s/JoNWGlqzpM1dOQlhDLUinaA54lRUylNAynb82o6nNTcWfZQBVHawewhda3D+qyPMjKIWnBYreZnhPtrJgxlzgwVdnK0C5ooQyJLotQAMPDQO4Hp96QZVhceHNB90hjT2GlQbltVOg+xMcsiLRMcbE7RtV6V+1eiw46NXp+v/PgWhgszes0Jxe1kaDqrUl1TMPthhI94UDixyy8PsCrsql8YGQ75XiRy5iRw/Fj37Wnly2M6s3d4Iw5M7qmDPd2WDpDK3I/42h/sJ6uxzrI55g/vDVlWSvlEldn2ha/0GP1sWdUXmcGo0wOjrrT10AtHuJWf68CeSGqum28MgrqYK6IlECMDGc2/51hYFpESp5U0A5w1deZzWUhoT2ydMwMj60JQdlW6GGY6JBq3ftpZqdmFJdqtEVtLfPa6JlMjPoGfa8LCnSUfcQDMUWd3T9NMLDp05FoQkiv67QPcBDzk2++vlVvKnAAuSMcVOUVH2JuZ8rUhkXGYkfekCCI1v/hCwxnZjhDQ4yUhGaAeYuI0tg0hObUqHmGSAqInJSwzhajuph/KBBs/af8UPaCg7MAfEcJhwwbJTQ8TEt3J71dwuYnEB8bbSVmq9GOCGGm9gWwX7HHBzByuk6UvlYY08H2M=
+  password: Password1234%^&*
   distributions: sdist bdist_wheel
   on:
     branch: master

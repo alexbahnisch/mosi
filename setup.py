@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="mosi",
-    version="0.0.1.dev5",
+    version="0.0.1.dev6",
     description="Modelling & Optimization Solver Interface (MOSI).",
     url="https://github.com/alexbahnisch/mosi.py",
     author="Alex Bahnisch",
