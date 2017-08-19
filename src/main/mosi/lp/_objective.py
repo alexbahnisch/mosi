@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from ..base import ObjectiveTypes
+from ..common import ObjectiveTypes
 from ._sum import LinearSum
 
 

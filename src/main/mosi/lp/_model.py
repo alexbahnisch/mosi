@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 
-from ..base import BaseModel, ModelStatus
+from ..common import BaseModel, ModelStatus
 from ._objective import LinearObjective
 from ._sum import LinearSum
 from ._variable import DecisionVariable

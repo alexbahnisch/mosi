@@ -2,7 +2,7 @@
 
 from decimal import Decimal
 
-from ..base import BaseModel, BaseSum, BaseVariable, CoefficientMap, ConstraintTypes, raise_operand_error
+from ..common import BaseModel, BaseSum, BaseVariable, CoefficientMap, ConstraintTypes, raise_operand_error
 from ._constraint import LinearConstraint
 
 

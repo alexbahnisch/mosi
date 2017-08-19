@@ -3,7 +3,7 @@
 from decimal import Decimal
 from math import inf
 
-from ..base import BaseSum, BaseModel, BaseVariable, ConstraintTypes, VariableTypes, raise_operand_error, NO_VALUE
+from ..common import BaseSum, BaseModel, BaseVariable, ConstraintTypes, VariableTypes, raise_operand_error, NO_VALUE
 from ._constraint import LinearConstraint
 from ._sum import LinearSum
 
@@ -12,7 +12,7 @@ class DecisionVariable(BaseVariable):
 
     # noinspection PyShadowingBuiltins
     def __init__(self, model, lower_bound=0, upper_bound=inf, type=VariableTypes.FLOAT, name=None):
-        self._model = BaseModel.instance(model)
+        self._model = BaseModel.pass_instance(model)
         self._name = model.parse_variable_name(name)
         self._lower_bound = float(lower_bound)
         self._upper_bound = float(upper_bound)
