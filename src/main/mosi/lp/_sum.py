@@ -9,7 +9,7 @@ from ._constraint import LinearConstraint
 class LinearSum(BaseSum):
 
     def __init__(self, model, coefficient_map, constant=0):
-        self._model = BaseModel.instance(model)
+        self._model = BaseModel.pass_instance(model)
         self._map = CoefficientMap.parse(coefficient_map)
         self._const = float(constant)
 

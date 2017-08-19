@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 from copy import copy
 from io import StringIO
 

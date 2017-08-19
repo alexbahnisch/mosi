@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 from io import StringIO
 
 from ..common import BaseEnum, BaseObject
