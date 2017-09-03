@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="mosi",
-    version="0.0.3",
+    version="0.0.4.dev1",
     description="Modelling & Optimization Solver Interface (MOSI).",
     url="https://github.com/alexbahnisch/mosi.py",
     author="Alex Bahnisch",
@@ -25,7 +25,7 @@ setup(
         "Programming Language :: Python :: Implementation :: CPython"
     ],
     keywords="optimization",
-    packages=find_packages("src/main", exclude=["tests"]),
+    packages=find_packages("src/main"),
     package_dir={"": "src/main"},
     install_requires=[
         "future>=0.16.0"
