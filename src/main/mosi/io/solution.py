@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 from xml.etree.ElementTree import parse, ParseError
 
-from ..common import BaseModel, BaseSolutionReader, ModelFile, ModelStatus
+from ..common import BaseModel, ModelFile, ModelStatus
+from .base import BaseSolutionReader
 
 
 class CbcSolutionFile(ModelFile):

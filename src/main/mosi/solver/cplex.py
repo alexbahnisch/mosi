@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from os import remove
 
-from ..clii import CplexSolutionFile, CplexSolutionReader, LpWriter, MpsWriter
-from ._base import FileTypes, CliSolver
+from ..io import CplexSolutionFile, CplexSolutionReader, LpWriter, MpsWriter
+from .base import FileTypes, CliSolver
 
 
 class CplexCliSolver(CliSolver):

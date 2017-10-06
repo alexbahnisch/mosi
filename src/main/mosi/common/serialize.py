@@ -3,7 +3,7 @@ from functools import wraps as _wraps
 
 from pyplus.common import isintlike as _isintlike, isnumber as _isnumber
 
-from ._objects import BaseObject as _BaseObject
+from .base import BaseObject as _BaseObject
 
 
 def _parse(method):

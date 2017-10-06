@@ -26,7 +26,7 @@ class FileTypes(BaseEnum):
 
 class CliSolver(BaseObject):
     __HELP__ = "-h"
-    __EXE__ = "NO_SOLVER"
+    __EXE__ = None
 
     def __init__(self, *args, path=None, model_writer=None, solution_reader=None):
         self._solver_path = None

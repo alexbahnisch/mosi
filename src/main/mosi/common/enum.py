@@ -29,7 +29,7 @@ class BaseIntEnum(_IntEnum):
             if isinstance(enum, str) and enum.upper() in cls.__members__:
                 return cls.__members__[enum.upper()]
             else:
-                raise_enum_error(cls, enum)
+                _raise_enum_error(cls, enum)
 
 
 # noinspection PyClassHasNoInit

@@ -2,7 +2,7 @@
 from decimal import Decimal
 
 from ..common import BaseModel, BaseSum, BaseVariable, CoefficientMap, ConstraintType, raise_operand_error
-from ._constraint import LinearConstraint
+from .constraint import LinearConstraint
 
 
 class LinearSum(BaseSum):

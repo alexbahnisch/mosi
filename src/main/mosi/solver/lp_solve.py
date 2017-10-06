@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 from subprocess import Popen
 
-from ..clii import LpSolveSolutionFile, LpSolveSolutionReader, LpsWriter, MpsWriter
-from ._base import FileTypes, CliSolver
+from ..io import LpSolveSolutionFile, LpSolveSolutionReader, LpsWriter, MpsWriter
+from .base import FileTypes, CliSolver
 
 
 class LpSolveCliSolver(CliSolver):
 
     def __init__(self, path, file_type="mps"):
-        file_type = FileTypes.parse(file_type, False)
+        file_type = FileTypes.parse(file_type)
 
         if file_type == FileTypes.lp:
             super().__init__(path=path, model_writer=LpsWriter(), solution_reader=LpSolveSolutionReader())

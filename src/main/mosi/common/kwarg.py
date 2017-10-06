@@ -1,8 +1,24 @@
 #!/usr/bin/env python
+from abc import ABCMeta as _ABCMeta, abstractmethod as _abstractmethod
+from keyword import iskeyword as _iskeyword
+from re import search as _search
 
-from abc import ABCMeta, abstractmethod
+from .exceptions import raise_keyword_error as _raise_keyword_error
+from .base import BaseObject
 
-from ..common import BaseObject, parse_keyword
+
+def _is_suitable_keyword(key):
+    try:
+        return all([_search("\W", key) is None, not key[0].isdigit(), not _iskeyword(key)])
+    except (TypeError, IndexError):
+        return False
+
+
+def parse_keyword(keyword):
+    if _is_suitable_keyword(keyword):
+        return str(keyword)
+    else:
+        _raise_keyword_error(keyword)
 
 
 # noinspection PyPep8Naming
@@ -11,7 +27,7 @@ class enum:
 
 
 # noinspection PyShadowingBuiltins, PyShadowingNames
-class BaseKwarg(BaseObject, metaclass=ABCMeta):
+class BaseKwarg(BaseObject, metaclass=_ABCMeta):
 
     def __init__(self, keyword, type, message):
         self._keyword = parse_keyword(keyword)
@@ -31,7 +47,7 @@ class BaseKwarg(BaseObject, metaclass=ABCMeta):
     def get_help_message(self):
         "%s: {%s}%s" % (self._keyword, self._type.__name__, self._get_message())
 
-    @abstractmethod
+    @_abstractmethod
     def __call__(self, args, error_callback):
         pass
 

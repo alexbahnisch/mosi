@@ -3,8 +3,8 @@ from decimal import Decimal
 from math import inf
 
 from ..common import BaseSum, BaseModel, BaseVariable, ConstraintType, VariableType, raise_operand_error, NO_VALUE
-from ._constraint import LinearConstraint
-from ._sum import LinearSum
+from .constraint import LinearConstraint
+from .sum import LinearSum
 
 
 class DecisionVariable(BaseVariable):

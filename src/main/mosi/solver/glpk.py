@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-from ..clii import GlpkSolutionFile, GlpkSolutionReader, LpWriter, MpsWriter
-from ._base import FileTypes, CliSolver
+from ..io import GlpkSolutionFile, GlpkSolutionReader, LpWriter, MpsWriter
+from .base import FileTypes, CliSolver
 
 
 class GlpkCliSolver(CliSolver):
     def __init__(self, path, file_type="mps"):
-        file_type = FileTypes.parse(file_type, False)
+        file_type = FileTypes.parse(file_type)
 
         if file_type == FileTypes.lp:
             super().__init__("--lp", path=path, model_writer=LpWriter(), solution_reader=GlpkSolutionReader())

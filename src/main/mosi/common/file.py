@@ -1,70 +1,10 @@
 #!/usr/bin/env python
-from copy import copy
 from datetime import datetime
-from keyword import iskeyword
 from os import remove
 from pathlib import Path
-from re import search
 from tempfile import mkdtemp
 
-from ._objects import BaseModel, BaseObject, BaseSum, BaseVariable
-from .exceptions import raise_keyword_error
-
-
-class CoefficientMap(dict):
-
-    def __init__(self):
-        super().__init__([])
-
-    def __getitem__(self, item):
-        if item not in self:
-            self[item] = float()
-        return super().__getitem__(item)
-
-    def __add__(self, other):
-        if isinstance(other, (BaseSum, CoefficientMap)):
-            for key in other:
-                self[key] += float(other[key])
-            return self
-        elif isinstance(other, BaseVariable):
-            self[other] += 1
-            return self
-        elif isinstance(other, dict):
-            for key in other:
-                self[BaseVariable.isinstance(key)] += float(other[key])
-            return self
-        else:
-            # TODO - raise better exception
-            raise Exception("TODO - raise better exception")
-
-    def __sub__(self, other):
-        if isinstance(other, (BaseSum, CoefficientMap)):
-            for key in other:
-                self[key] -= float(other[key])
-            return self
-        elif isinstance(other, BaseVariable):
-            self[other] -= 1
-            return self
-        elif isinstance(other, dict):
-            for key in other:
-                self[BaseVariable.isinstance(key)] -= float(other[key])
-            return self
-        else:
-            # TODO - raise better exception
-            raise Exception("TODO - raise better exception")
-
-    @classmethod
-    def parse(cls, dictionary):
-        if isinstance(dictionary, CoefficientMap):
-            return copy(dictionary)
-        elif isinstance(dictionary, dict):
-            instance = cls()
-            for key in dictionary:
-                instance[BaseVariable.isinstance(key)] += float(dictionary[key])
-            return instance
-        else:
-            # TODO - raise better exception
-            raise Exception("TODO - raise better exception")
+from .base import BaseModel, BaseObject
 
 
 class ModelFile(BaseObject):
@@ -153,17 +93,3 @@ class ModelFile(BaseObject):
 
     def write(self):
         return self._path.open(mode="w")
-
-
-def _is_suitable_keyword(key):
-    try:
-        return all([search("\W", key) is None, not key[0].isdigit(), not iskeyword(key)])
-    except (TypeError, IndexError):
-        return False
-
-
-def parse_keyword(keyword):
-    if _is_suitable_keyword(keyword):
-        return str(keyword)
-    else:
-        raise_keyword_error(keyword)

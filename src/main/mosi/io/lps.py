@@ -2,7 +2,7 @@
 from io import StringIO
 
 from ..common import BaseEnum, BaseObject
-from ._lp import LpFile
+from .lp import LpFile
 
 
 class LpsVariableType(BaseEnum):

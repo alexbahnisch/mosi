@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from ..common import ObjectiveType
-from ._sum import LinearSum
+from .sum import LinearSum
 
 
 class LinearObjective(LinearSum):

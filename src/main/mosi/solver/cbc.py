@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 from pathlib import Path
 
-from ..clii import CbcSolutionFile, CbcSolutionReader, LpWriter, MpsWriter
-from ._base import FileTypes, CliSolver, solverpath
+from ..io import CbcSolutionFile, CbcSolutionReader, LpWriter, MpsWriter
+from .base import FileTypes, CliSolver, solverpath
 
 
 # noinspection PyUnresolvedReferences
@@ -10,7 +10,7 @@ class CbcCliSolver(CliSolver):
     __EXE__ = "cbc.exe"
 
     def __init__(self, path=None, file_type="mps"):
-        file_type = FileTypes.parse(file_type, False)
+        file_type = FileTypes.parse(file_type)
 
         if file_type == FileTypes.lp:
             super(CbcCliSolver, self).__init__(path=path, model_writer=LpWriter(), solution_reader=CbcSolutionReader())

@@ -2,9 +2,9 @@
 from decimal import Decimal
 
 from ..common import BaseModel, ModelStatus
-from ._objective import LinearObjective
-from ._sum import LinearSum
-from ._variable import DecisionVariable
+from .objective import LinearObjective
+from .sum import LinearSum
+from .variable import DecisionVariable
 
 
 class Model(BaseModel):
