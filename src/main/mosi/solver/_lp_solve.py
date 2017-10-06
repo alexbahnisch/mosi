@@ -11,11 +11,11 @@ class LpSolveCliSolver(CliSolver):
         file_type = FileTypes.parse(file_type, False)
 
         if file_type == FileTypes.lp:
-            super().__init__(path, model_writer=LpsWriter(), solution_reader=LpSolveSolutionReader())
+            super().__init__(path=path, model_writer=LpsWriter(), solution_reader=LpSolveSolutionReader())
         elif file_type == FileTypes.mps:
-            super().__init__(path, "-mps", model_writer=MpsWriter(), solution_reader=LpSolveSolutionReader())
+            super().__init__("-mps", path=path, model_writer=MpsWriter(), solution_reader=LpSolveSolutionReader())
         else:
-            super().__init__(path, "-mps", model_writer=MpsWriter(), solution_reader=LpSolveSolutionReader())
+            super().__init__("-mps", path=path, model_writer=MpsWriter(), solution_reader=LpSolveSolutionReader())
 
     def solve(self, model, directory=None, name=None, delete=True, message_callback=print, **kwargs):
         self._model_writer.set(directory, name, delete)

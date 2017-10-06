@@ -1,19 +1,36 @@
 #!/usr/bin/env python
+from pathlib import Path
+
 from ..clii import CbcSolutionFile, CbcSolutionReader, LpWriter, MpsWriter
-from ._base import FileTypes, CliSolver
+from ._base import FileTypes, CliSolver, solverpath
 
 
+# noinspection PyUnresolvedReferences
 class CbcCliSolver(CliSolver):
+    __EXE__ = "cbc.exe"
 
-    def __init__(self, path, file_type="mps"):
+    def __init__(self, path=None, file_type="mps"):
         file_type = FileTypes.parse(file_type, False)
 
         if file_type == FileTypes.lp:
-            super(CbcCliSolver, self).__init__(path, model_writer=LpWriter(), solution_reader=CbcSolutionReader())
+            super(CbcCliSolver, self).__init__(path=path, model_writer=LpWriter(), solution_reader=CbcSolutionReader())
         elif file_type == FileTypes.mps:
-            super(CbcCliSolver, self).__init__(path, model_writer=MpsWriter(), solution_reader=CbcSolutionReader())
+            super(CbcCliSolver, self).__init__(path=path, model_writer=MpsWriter(), solution_reader=CbcSolutionReader())
         else:
-            super(CbcCliSolver, self).__init__(path, model_writer=MpsWriter(), solution_reader=CbcSolutionReader())
+            super(CbcCliSolver, self).__init__(path=path, model_writer=MpsWriter(), solution_reader=CbcSolutionReader())
+
+    @solverpath
+    def _set_solver_path(self, path):
+        if path is None:
+            try:
+                import mosi_cbc
+                if mosi_cbc.__version__ >= "0.0.1":
+                    self._solver_path = Path(mosi_cbc.get_cbc_path())
+            except ImportError:
+                pass
+
+        if self._solver_path is None:
+            super()._set_solver_path(path)
 
     def solve(self, model, directory=None, name=None, delete=True, message_callback=print, **kwargs):
         self._model_writer.set(directory, name, bool(delete))

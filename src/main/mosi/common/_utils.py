@@ -8,7 +8,7 @@ from re import search
 from tempfile import mkdtemp
 
 from ._objects import BaseModel, BaseObject, BaseSum, BaseVariable
-from ._exceptions import raise_keyword_error
+from .exceptions import raise_keyword_error
 
 
 class CoefficientMap(dict):
@@ -31,7 +31,7 @@ class CoefficientMap(dict):
             return self
         elif isinstance(other, dict):
             for key in other:
-                self[BaseVariable.pass_instance(key)] += float(other[key])
+                self[BaseVariable.isinstance(key)] += float(other[key])
             return self
         else:
             # TODO - raise better exception
@@ -47,7 +47,7 @@ class CoefficientMap(dict):
             return self
         elif isinstance(other, dict):
             for key in other:
-                self[BaseVariable.pass_instance(key)] -= float(other[key])
+                self[BaseVariable.isinstance(key)] -= float(other[key])
             return self
         else:
             # TODO - raise better exception
@@ -60,7 +60,7 @@ class CoefficientMap(dict):
         elif isinstance(dictionary, dict):
             instance = cls()
             for key in dictionary:
-                instance[BaseVariable.pass_instance(key)] += float(dictionary[key])
+                instance[BaseVariable.isinstance(key)] += float(dictionary[key])
             return instance
         else:
             # TODO - raise better exception
@@ -70,7 +70,7 @@ class CoefficientMap(dict):
 class ModelFile(BaseObject):
 
     def __init__(self, model, directory=None, name=None, extension=".txt", delete=True):
-        self._model = BaseModel.pass_instance(model)
+        self._model = BaseModel.isinstance(model)
         self._base_name = str(name) if name else model.get_name() + "_" + datetime.now().strftime("%Y%m%d%H%M%S")
         self._extension = str(extension)
         self._delete = bool(delete)
@@ -167,14 +167,3 @@ def parse_keyword(keyword):
         return str(keyword)
     else:
         raise_keyword_error(keyword)
-
-
-def is_iterable(arg):
-    return hasattr(arg, "__iter__")
-
-
-def to_list(arg):
-    if is_iterable(arg):
-        return list(arg)
-    else:
-        return [arg]

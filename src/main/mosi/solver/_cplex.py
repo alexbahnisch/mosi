@@ -7,14 +7,14 @@ from ._base import FileTypes, CliSolver
 
 class CplexCliSolver(CliSolver):
     def __init__(self, path, file_type="mps"):
-        file_type = FileTypes.parse(file_type, False)
+        file_type = FileTypes.parse(file_type)
 
         if file_type == FileTypes.lp:
-            super().__init__(path, model_writer=LpWriter(), solution_reader=CplexSolutionReader())
+            super().__init__(path=path, model_writer=LpWriter(), solution_reader=CplexSolutionReader())
         elif file_type == FileTypes.mps:
-            super().__init__(path, model_writer=MpsWriter(), solution_reader=CplexSolutionReader())
+            super().__init__(path=path, model_writer=MpsWriter(), solution_reader=CplexSolutionReader())
         else:
-            super().__init__(path, model_writer=MpsWriter(), solution_reader=CplexSolutionReader())
+            super().__init__(path=path, model_writer=MpsWriter(), solution_reader=CplexSolutionReader())
 
     def solve(self, model, directory=None, name=None, delete=True, message_callback=print, **kwargs):
         self._model_writer.set(directory, name, delete)

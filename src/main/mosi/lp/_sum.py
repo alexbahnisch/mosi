@@ -1,15 +1,14 @@
 #!/usr/bin/env python
-
 from decimal import Decimal
 
-from ..common import BaseModel, BaseSum, BaseVariable, CoefficientMap, ConstraintTypes, raise_operand_error
+from ..common import BaseModel, BaseSum, BaseVariable, CoefficientMap, ConstraintType, raise_operand_error
 from ._constraint import LinearConstraint
 
 
 class LinearSum(BaseSum):
 
     def __init__(self, model, coefficient_map, constant=0):
-        self._model = BaseModel.pass_instance(model)
+        self._model = BaseModel.isinstance(model)
         self._map = CoefficientMap.parse(coefficient_map)
         self._const = float(constant)
 
@@ -134,31 +133,31 @@ class LinearSum(BaseSum):
 
     def __eq__(self, other):
         if isinstance(other, (int, float, Decimal)):
-            return LinearConstraint(self._model, self._map, other - self._const, ConstraintTypes.EQ)
+            return LinearConstraint(self._model, self._map, other - self._const, ConstraintType.EQ)
         elif isinstance(other, BaseVariable):
-            return LinearConstraint(self._model, self._map.copy() - other, -self._const, ConstraintTypes.EQ)
+            return LinearConstraint(self._model, self._map.copy() - other, -self._const, ConstraintType.EQ)
         elif isinstance(other, LinearSum):
-            return LinearConstraint(self._model, self._map.copy() - other.get_map(), -self._const, ConstraintTypes.EQ)
+            return LinearConstraint(self._model, self._map.copy() - other.get_map(), -self._const, ConstraintType.EQ)
         else:
             raise_operand_error(other, self, "==")
 
     def __ge__(self, other):
         if isinstance(other, (int, float, Decimal)):
-            return LinearConstraint(self._model, self._map, other - self._const, ConstraintTypes.GE)
+            return LinearConstraint(self._model, self._map, other - self._const, ConstraintType.GE)
         elif isinstance(other, BaseVariable):
-            return LinearConstraint(self._model, self._map.copy() - other, -self._const, ConstraintTypes.GE)
+            return LinearConstraint(self._model, self._map.copy() - other, -self._const, ConstraintType.GE)
         elif isinstance(other, LinearSum):
-            return LinearConstraint(self._model, self._map.copy() - other.get_map(), -self._const, ConstraintTypes.GE)
+            return LinearConstraint(self._model, self._map.copy() - other.get_map(), -self._const, ConstraintType.GE)
         else:
             raise_operand_error(other, self, "<=")
 
     def __le__(self, other):
         if isinstance(other, (int, float, Decimal)):
-            return LinearConstraint(self._model, self._map, other - self._const, ConstraintTypes.LE)
+            return LinearConstraint(self._model, self._map, other - self._const, ConstraintType.LE)
         elif isinstance(other, BaseVariable):
-            return LinearConstraint(self._model, self._map.copy() - other, -self._const, ConstraintTypes.LE)
+            return LinearConstraint(self._model, self._map.copy() - other, -self._const, ConstraintType.LE)
         elif isinstance(other, LinearSum):
-            return LinearConstraint(self._model, self._map.copy() - other.get_map(), -self._const, ConstraintTypes.LE)
+            return LinearConstraint(self._model, self._map.copy() - other.get_map(), -self._const, ConstraintType.LE)
         else:
             raise_operand_error(other, self, ">=")
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 from decimal import Decimal
 
 from ..common import BaseModel, ModelStatus

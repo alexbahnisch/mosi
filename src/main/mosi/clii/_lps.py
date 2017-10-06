@@ -5,7 +5,7 @@ from ..common import BaseEnum, BaseObject
 from ._lp import LpFile
 
 
-class LpsVariableTypes(BaseEnum):
+class LpsVariableType(BaseEnum):
     FREE = "free"
 
     def __str__(self):
@@ -42,7 +42,7 @@ class LpsWriter(BaseObject):
             bounds = "%s = %s;\n" % (variable.get_uid(), variable.get_value())
 
         elif variable.get_lower_bound() == -float("inf") and variable.get_upper_bound() == float("inf"):
-            variable_type = LpsVariableTypes.FREE
+            variable_type = LpsVariableType.FREE
 
         elif variable.get_lower_bound() != 0 and variable.get_upper_bound() < float("inf"):
             bounds = "%s <= %s <= %s;\n" % (variable.get_lower_bound(), variable.get_uid(), variable.get_upper_bound())
@@ -103,7 +103,7 @@ class LpsWriter(BaseObject):
 
     def _write_variables(self, file, model):
         file.write("/* BOUNDS */\n")
-        variables_map = {variable_type: [str(variable_type) + " "] for variable_type in LpsVariableTypes}
+        variables_map = {variable_type: [str(variable_type) + " "] for variable_type in LpsVariableType}
         variables = model.get_variables()
 
         for (index, variable) in enumerate(variables):
@@ -112,11 +112,11 @@ class LpsWriter(BaseObject):
             bounds, variable_type = self._get_bounds(variable)
             file.write(bounds)
 
-            if variable_type in LpsVariableTypes:
+            if variable_type in LpsVariableType:
                 variables_map[variable_type].append(key)
                 variables_map[variable_type].append(", ")
 
-        for variable_type in LpsVariableTypes:
+        for variable_type in LpsVariableType:
             if len(variables_map[variable_type]) > 1:
                 variables_map[variable_type][-1] = ";\n"
                 file.write("".join(variables_map[variable_type]))

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 from ._base import CliSolver
 from ._cbc import CbcCliSolver
 from ._cplex import CplexCliSolver

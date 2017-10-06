@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-
-from ..common import ObjectiveTypes
+from ..common import ObjectiveType
 from ._sum import LinearSum
 
 
@@ -8,7 +7,7 @@ class LinearObjective(LinearSum):
 
     def __init__(self, model, coefficient_map, constant=0, objective_type="min"):
         super().__init__(model, coefficient_map, constant)
-        self._type = ObjectiveTypes.parse(objective_type)
+        self._type = ObjectiveType.parse(objective_type)
 
     def __copy__(self):
         return self.__class__(self._model, self._map, self._const, self._type)

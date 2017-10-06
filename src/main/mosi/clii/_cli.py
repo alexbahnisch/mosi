@@ -2,7 +2,7 @@
 
 from abc import ABCMeta, abstractmethod
 
-from ..common import BaseObject, class_name, parse_keyword
+from ..common import BaseObject, parse_keyword
 
 
 # noinspection PyPep8Naming
@@ -53,7 +53,7 @@ class Option(BaseObject):
         return self._argument
 
     def get_help_message(self):
-        return "\t%s: {%s}" % self._option, class_name(self._option), self._get_message
+        return "\t%s: {%s}" % self._option, type(self._option).__name__, self._get_message
 
 
 # noinspection PyShadowingNames
@@ -61,7 +61,7 @@ class EnumKwarg(BaseKwarg):
 
     def __init__(self, keyword, *options, message=None):
         super().__init__(keyword, enum, message)
-        self._option_map = {option.get_option(): Option.pass_instance(option) for option in options}
+        self._option_map = {option.get_option(): Option.isinstance(option) for option in options}
 
     def __call__(self, arg, error_callback):
         if arg in self._option_map:

@@ -34,7 +34,7 @@ class TxtSolutionReader(BaseSolutionReader):
 
     def __call__(self, solution_file):
         if isinstance(self._model, BaseModel):
-            solution_file = ModelFile.pass_instance(solution_file)
+            solution_file = ModelFile.isinstance(solution_file)
 
             with solution_file.read() as file:
                 lines = file.readlines()
@@ -81,7 +81,7 @@ class CplexSolutionReader(BaseSolutionReader):
 
     def __call__(self, solution_file):
         if isinstance(self._model, BaseModel):
-            solution_file = ModelFile.pass_instance(solution_file)
+            solution_file = ModelFile.isinstance(solution_file)
 
             try:
                 root_node = parse(solution_file.get_path()).getroot()

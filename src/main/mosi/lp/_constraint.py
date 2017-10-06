@@ -1,23 +1,22 @@
 #!/usr/bin/env python
-
-from ..common import BaseConstraint, BaseModel, CoefficientMap, ConstraintTypes
+from ..common import BaseConstraint, BaseModel, CoefficientMap, ConstraintType
 
 
 class LinearConstraint(BaseConstraint):
 
     def __init__(self, model, lhs_map, rhs_constant, constraint_type):
-        self._model = BaseModel.pass_instance(model)
+        self._model = BaseModel.isinstance(model)
         self._uid = None
 
         if float(rhs_constant) < 0:
             self._map = CoefficientMap() - lhs_map
             self._const = -float(rhs_constant)
-            self._type = ~ConstraintTypes.parse(constraint_type)
+            self._type = ~ConstraintType.parse(constraint_type)
 
         else:
             self._map = CoefficientMap.parse(lhs_map)
             self._const = float(rhs_constant)
-            self._type = ConstraintTypes.parse(constraint_type)
+            self._type = ConstraintType.parse(constraint_type)
 
         if self._model.is_auto():
             self._model.add_constraint(self)

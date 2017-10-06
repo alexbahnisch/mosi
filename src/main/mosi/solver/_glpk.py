@@ -8,11 +8,9 @@ class GlpkCliSolver(CliSolver):
         file_type = FileTypes.parse(file_type, False)
 
         if file_type == FileTypes.lp:
-            super().__init__(path, "--lp", model_writer=LpWriter(), solution_reader=GlpkSolutionReader())
-        elif file_type == FileTypes.mps:
-            super().__init__(path, "--mps", model_writer=MpsWriter(), solution_reader=GlpkSolutionReader())
+            super().__init__("--lp", path=path, model_writer=LpWriter(), solution_reader=GlpkSolutionReader())
         else:
-            super().__init__(path, "--mps", model_writer=MpsWriter(), solution_reader=GlpkSolutionReader())
+            super().__init__("--mps", path=path, model_writer=MpsWriter(), solution_reader=GlpkSolutionReader())
 
     def solve(self, model, directory=None, name=None, delete=True, message_callback=print, **kwargs):
         self._model_writer.set(directory, name, delete)

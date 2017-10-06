@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-
 from decimal import Decimal
 from math import inf
 
-from ..common import BaseSum, BaseModel, BaseVariable, ConstraintTypes, VariableTypes, raise_operand_error, NO_VALUE
+from ..common import BaseSum, BaseModel, BaseVariable, ConstraintType, VariableType, raise_operand_error, NO_VALUE
 from ._constraint import LinearConstraint
 from ._sum import LinearSum
 
@@ -11,12 +10,12 @@ from ._sum import LinearSum
 class DecisionVariable(BaseVariable):
 
     # noinspection PyShadowingBuiltins
-    def __init__(self, model, lower_bound=0, upper_bound=inf, type=VariableTypes.FLOAT, name=None):
-        self._model = BaseModel.pass_instance(model)
+    def __init__(self, model, lower_bound=0, upper_bound=inf, type=VariableType.FLOAT, name=None):
+        self._model = BaseModel.isinstance(model)
         self._name = model.parse_variable_name(name)
         self._lower_bound = float(lower_bound)
         self._upper_bound = float(upper_bound)
-        self._type = VariableTypes.parse(type)
+        self._type = VariableType.parse(type)
         self._parser = self._type.get_parser()
 
         self._constraints = set()
@@ -141,9 +140,9 @@ class DecisionVariable(BaseVariable):
 
     def __eq__(self, other):
         if isinstance(other, (Decimal, float, int)):
-            return LinearConstraint(self._model, {self: 1}, other, ConstraintTypes.EQ)
+            return LinearConstraint(self._model, {self: 1}, other, ConstraintType.EQ)
         elif isinstance(other, BaseVariable):
-            return LinearConstraint(self._model, {self: 1, other: -1}, 0, ConstraintTypes.EQ)
+            return LinearConstraint(self._model, {self: 1, other: -1}, 0, ConstraintType.EQ)
         elif isinstance(other, BaseSum):
             pass
         else:
@@ -151,9 +150,9 @@ class DecisionVariable(BaseVariable):
 
     def __ge__(self, other):
         if isinstance(other, (Decimal, float, int)):
-            return LinearConstraint(self._model, {self: 1}, other, ConstraintTypes.GE)
+            return LinearConstraint(self._model, {self: 1}, other, ConstraintType.GE)
         elif isinstance(other, BaseVariable):
-            return LinearConstraint(self._model, {self: 1, other: -1}, 0, ConstraintTypes.GE)
+            return LinearConstraint(self._model, {self: 1, other: -1}, 0, ConstraintType.GE)
         elif isinstance(other, BaseSum):
             pass
         else:
@@ -161,9 +160,9 @@ class DecisionVariable(BaseVariable):
 
     def __le__(self, other):
         if isinstance(other, (Decimal, float, int)):
-            return LinearConstraint(self._model, {self: 1}, other, ConstraintTypes.LE)
+            return LinearConstraint(self._model, {self: 1}, other, ConstraintType.LE)
         elif isinstance(other, BaseVariable):
-            return LinearConstraint(self._model, {self: 1, other: -1}, 0, ConstraintTypes.LE)
+            return LinearConstraint(self._model, {self: 1, other: -1}, 0, ConstraintType.LE)
         elif isinstance(other, BaseSum):
             pass
         else:

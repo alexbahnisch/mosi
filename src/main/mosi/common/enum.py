@@ -1,47 +1,39 @@
 #!/usr/bin/env python
-from enum import Enum, IntEnum
+from enum import Enum as _Enum, IntEnum as _IntEnum
 
-from ._exceptions import raise_enum_error
+from .exceptions import raise_enum_error as _raise_enum_error
 
 
-class BaseEnum(Enum):
+# noinspection PyClassHasNoInit
+class BaseEnum(_Enum):
 
     @classmethod
-    def parse(cls, enum, error=True):
+    def parse(cls, enum):
         try:
             return cls(enum)
         except ValueError:
             if isinstance(enum, str) and enum.upper() in cls.__members__:
                 return cls.__members__[enum.upper()]
-            elif hasattr(enum, "__str__") and str(enum).upper() in cls.__members__:
-                return cls.__members__[str(enum).upper()]
             else:
-                if bool(error):
-                    raise_enum_error(cls, enum)
-                else:
-                    return None
+                _raise_enum_error(cls, enum)
 
 
 # noinspection PyUnresolvedReferences
-class BaseIntEnum(IntEnum):
+class BaseIntEnum(_IntEnum):
 
     @classmethod
-    def parse(cls, enum, error=True):
+    def parse(cls, enum):
         try:
             return cls(int(enum))
         except ValueError:
             if isinstance(enum, str) and enum.upper() in cls.__members__:
                 return cls.__members__[enum.upper()]
-            elif hasattr(enum, "__str__") and str(enum).upper() in cls.__members__:
-                return cls.__members__[str(enum).upper()]
             else:
-                if bool(error):
-                    raise_enum_error(cls, enum)
-                else:
-                    return None
+                raise_enum_error(cls, enum)
 
 
-class ConstraintTypes(BaseEnum):
+# noinspection PyClassHasNoInit
+class ConstraintType(BaseEnum):
     EQ = "eq"
     LE = "le"
     GE = "ge"
@@ -50,7 +42,7 @@ class ConstraintTypes(BaseEnum):
     __MPS__ = {EQ: "E", GE: "G", LE: "L"}
 
     def __invert__(self):
-        return ConstraintTypes(self.__INV__[self.value])
+        return ConstraintType(self.__INV__[self.value])
 
     def to_lp(self):
         return self.__LP__[self.value]
@@ -70,19 +62,16 @@ class ModelStatus(BaseIntEnum):
         return self.value > 0
 
 
-class ObjectiveTypes(BaseEnum):
+# noinspection PyClassHasNoInit
+class ObjectiveType(BaseEnum):
     MIN = "min"
     MAX = "max"
-    MINIMISE = MIN
-    MAXIMISE = MAX
-    MINIMIZE = MIN
-    MAXIMIZE = MAX
     __INV__ = {MIN: MAX, MAX: MIN}
     __LP__ = {MIN: "MINIMIZE", MAX: "MAXIMIZE"}
     __MPS__ = {MIN: "MIN", MAX: "MAX"}
 
     def __invert__(self):
-        return ObjectiveTypes(self.__INV__[self.value])
+        return ObjectiveType(self.__INV__[self.value])
 
     def to_lp(self):
         return self.__LP__[self.value]
@@ -91,7 +80,8 @@ class ObjectiveTypes(BaseEnum):
         return self.__MPS__[self.value]
 
 
-class VariableTypes(BaseEnum):
+# noinspection PyClassHasNoInit
+class VariableType(BaseEnum):
     FLOAT = "float"
     BINARY = "binary"
     INTEGER = "integer"

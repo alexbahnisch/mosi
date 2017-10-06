@@ -2,8 +2,7 @@
 from copy import copy
 from io import StringIO
 
-from ..common import BaseObject, BaseEnum, ModelFile, ObjectiveTypes
-from ._serializers import IndexSerializer, NumberSerializer
+from ..common import BaseObject, BaseEnum, ModelFile, ObjectiveType, IndexSerializer, NumberSerializer
 
 
 class MpsBoundTypes(BaseEnum):
@@ -103,7 +102,7 @@ class MpsWriter(BaseObject):
         file.write("COLUMNS\n")
         objective = copy(model.get_objective())
 
-        if objective.get_type() == ObjectiveTypes.MAX:
+        if objective.get_type() == ObjectiveType.MAX:
             _ = ~objective
             inverse = True
         else:
