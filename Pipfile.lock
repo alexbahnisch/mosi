@@ -29,10 +29,10 @@
     "default": {
         "pyplus": {
             "hashes": [
-                "sha256:329a2762326c0a9543b27acf78858ac1473a7bec78b1481f1caa423566404ee7",
-                "sha256:3f3ce095bbed71d80a6b8c0e81cfbced249135634f68a4b7a1d5d3d056d0583a"
+                "sha256:cacd892d69c35d7d4f585fc3624da44ca9421ee5dfc3e34cac69729c570c357c",
+                "sha256:cab32ccbb36804e8b3828eb817b729d9c732b466401c4c3f01937a406633dafd"
             ],
-            "version": "==0.1.1"
+            "version": "==0.1.2"
         }
     },
     "develop": {
