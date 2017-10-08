@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from shutil import rmtree
 
-from mosi.common import ModelStatus, NO_VALUE
+from mosi.common import ModelStatus, NoValue
 from mosi.lp import Model, DecisionVariable
 
 # noinspection PyPackageRequirements,PyUnresolvedReferences
@@ -15,10 +15,10 @@ DELETE = True
 DIRECTORY = None  # "../../../volume/results/lp"
 CBC_OBJECTIVE = 130
 GLPK_OBJECTIVE = 0
-OBJECTIVE = NO_VALUE
+OBJECTIVE = NoValue
 CBC_SOLUTION = [30, 20]
 GLPK_SOLUTION = [0, 0]
-SOLUTION = [NO_VALUE, NO_VALUE]
+SOLUTION = [NoValue, NoValue]
 TOLERANCE = 10 ** -8
 
 

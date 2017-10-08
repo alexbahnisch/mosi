@@ -2,7 +2,7 @@
 from decimal import Decimal
 from math import inf
 
-from ..common import BaseSum, BaseModel, BaseVariable, ConstraintType, VariableType, raise_operand_error, NO_VALUE
+from ..common import BaseSum, BaseModel, BaseVariable, ConstraintType, VariableType, raise_operand_error, NoValue
 from .constraint import LinearConstraint
 from .sum import LinearSum
 
@@ -24,7 +24,7 @@ class DecisionVariable(BaseVariable):
         self._objective = None
         self._lower_bound_constraint = None
         self._upper_bound_constraint = None
-        self._value = NO_VALUE
+        self._value = NoValue
 
     def __hash__(self):
         return id(self)
@@ -172,7 +172,7 @@ class DecisionVariable(BaseVariable):
         self._constraints.add(constraint)
 
     def clear(self):
-        self._value = NO_VALUE
+        self._value = NoValue
 
         if self._lower_bound_constraint is not None:
             self._model.remove_constraint(self._lower_bound_constraint)
@@ -241,7 +241,7 @@ class DecisionVariable(BaseVariable):
         return self._uid is not None
 
     def has_value(self):
-        return self._value is not NO_VALUE
+        return self._value is not NoValue
 
     def remove_constraint(self, constraint):
         if constraint in self._constraints:

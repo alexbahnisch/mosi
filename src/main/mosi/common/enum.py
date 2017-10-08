@@ -7,6 +7,9 @@ from .exceptions import raise_enum_error as _raise_enum_error
 # noinspection PyClassHasNoInit
 class BaseEnum(_Enum):
 
+    def __str__(self):
+        return self.value
+
     @classmethod
     def parse(cls, enum):
         try:
@@ -20,6 +23,9 @@ class BaseEnum(_Enum):
 
 # noinspection PyUnresolvedReferences
 class BaseIntEnum(_IntEnum):
+
+    def __str__(self):
+        return self.key
 
     @classmethod
     def parse(cls, enum):

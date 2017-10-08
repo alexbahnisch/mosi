@@ -40,8 +40,9 @@ setup(
     keywords="optimization",
     packages=find_packages("src/main"),
     package_dir={"": "src/main"},
+    python_requires=">=3.5",
     install_requires=[
-        "pyplus>=0.1.1,<0.2"
+        "pyplus>=0.1.2,<0.2"
     ],
     setup_requires=[
         "pypandoc>=1.4<2"

@@ -1,0 +1,22 @@
+engines:
+  duplication:
+    enabled: true
+  fixme:
+    enabled: true
+  pep8:
+    enabled: true
+    checks:
+      E501:
+        enabled: false
+  radon:
+    enabled: true
+    config:
+      python_version: 3
+
+ratings:
+  paths:
+    - src/main/**/*.py
+
+exclude_paths:
+  - src/tests/**
+  - src/integration-tests/**

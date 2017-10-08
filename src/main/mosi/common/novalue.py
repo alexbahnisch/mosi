@@ -6,7 +6,7 @@ from .base import BaseObject as _BaseObject
 
 # noinspection PyClassHasNoInit
 @_singleton
-class NoValue(_BaseObject):
+class NoValueType(_BaseObject):
 
     def __abs__(self):
         return self
@@ -101,4 +101,4 @@ class NoValue(_BaseObject):
     def __str__(self):
         return self.__class__.__name__
 
-NO_VALUE = NoValue()
+NoValue = NoValueType()

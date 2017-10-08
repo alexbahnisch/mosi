@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from subprocess import Popen
 
-from ..io import LpSolveSolutionFile, LpSolveSolutionReader, LpsWriter, MpsWriter
+from ..format import LpSolveSolutionFile, LpSolveSolutionReader, LpsWriter, MpsWriter
 from .base import FileTypes, CliSolver
 
 

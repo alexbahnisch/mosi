@@ -2,7 +2,13 @@
 from ..common import BaseObject as _BaseObject, BaseModel as _BaseModel
 
 
-class BaseSolutionReader(_BaseObject):
+class ModelFormatWriter(_BaseObject):
+
+    def __init__(self):
+        pass
+
+
+class SolutionReader(_BaseObject):
     __KEY_PARSER__ = str
     __VALUE_PARSER__ = float
     __STATUS__ = {}

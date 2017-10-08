@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from os import remove
 
-from ..io import CplexSolutionFile, CplexSolutionReader, LpWriter, MpsWriter
+from ..format import CplexSolutionFile, CplexSolutionReader, LpWriter, MpsWriter
 from .base import FileTypes, CliSolver
 
 

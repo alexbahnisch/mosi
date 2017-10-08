@@ -5,7 +5,7 @@ class BaseObject:
 
     @classmethod
     def isinstance(cls, instance):
-        if not isinstance(instance, cls):
+        if isinstance(instance, cls):
             return instance
         else:
             raise TypeError("'%s' is not an instance of '%s'" % (instance, cls.__name__))

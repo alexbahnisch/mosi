@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from ..io import GlpkSolutionFile, GlpkSolutionReader, LpWriter, MpsWriter
+from ..format import GlpkSolutionFile, GlpkSolutionReader, LpWriter, MpsWriter
 from .base import FileTypes, CliSolver
 
 

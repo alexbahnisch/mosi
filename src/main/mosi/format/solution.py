@@ -2,7 +2,7 @@
 from xml.etree.ElementTree import parse, ParseError
 
 from ..common import BaseModel, ModelFile, ModelStatus
-from .base import BaseSolutionReader
+from .base import SolutionReader
 
 
 class CbcSolutionFile(ModelFile):
@@ -29,7 +29,7 @@ class LpSolveSolutionFile(ModelFile):
         super().__init__(model, directory, name, ".sol.lp", delete)
 
 
-class TxtSolutionReader(BaseSolutionReader):
+class TxtSolutionReader(SolutionReader):
     __DELIMITER__ = " "
     __NEWLINE__ = "\n"
 
@@ -75,7 +75,7 @@ class CbcSolutionReader(TxtSolutionReader):
             pass
 
 
-class CplexSolutionReader(BaseSolutionReader):
+class CplexSolutionReader(SolutionReader):
     __STATUS__ = {
         "optimal": ModelStatus.OPTIMAL
     }

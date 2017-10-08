@@ -1,18 +1,23 @@
 language: python
 
 python:
-  - 2.7
   - 3.5
   - 3.6
 
 install:
-  - pip install tox-travis
+  - pip install coveralls tox-travis
 
 script:
   - tox
 
+after_success:
+  - coveralls
+
 notifications:
   email: true
+
+before_deploy:
+  - pip install pypandoc
 
 deploy:
   - provider: pypi
@@ -24,6 +29,7 @@ deploy:
     on:
       branch: master
       python: 3.6
+      repo: alexbahnisch/mosi
       tags: false
 
   - provider: pypi
@@ -35,4 +41,5 @@ deploy:
     on:
       branch: master
       python: 3.6
+      repo: alexbahnisch/mosi
       tags: true

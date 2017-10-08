@@ -22,8 +22,8 @@ class MpsFile(ModelFile):
 class MpsWriter(BaseObject):
 
     def __init__(self, index_parser=IndexSerializer(), value_parser=NumberSerializer()):
-        self._index_parser = index_parser
-        self._value_parser = value_parser
+        self._index_serializer = index_parser
+        self._number_serializer = value_parser
         self._get_model_file = lambda model: MpsFile(model)
 
     def __call__(self, model):
@@ -53,18 +53,18 @@ class MpsWriter(BaseObject):
             pass
 
         elif variable.has_value() or (variable.get_lower_bound() == variable.get_upper_bound()):
-            bounds.append(bound_format % (MpsBoundTypes.FX.value, variable.get_uid(), variable.get_value()))
+            bounds.append(bound_format % (MpsBoundTypes.FX, variable.get_uid(), variable.get_value()))
 
         elif variable.get_lower_bound() >= 0:
 
             if variable.get_lower_bound() > 0:
-                bounds.append(bound_format % (MpsBoundTypes.LO.value, variable.get_uid(), variable.get_lower_bound()))
+                bounds.append(bound_format % (MpsBoundTypes.LO, variable.get_uid(), variable.get_lower_bound()))
 
             if variable.get_upper_bound() < float("inf"):
-                bounds.append(bound_format % (MpsBoundTypes.UP.value, variable.get_uid(), variable.get_upper_bound()))
+                bounds.append(bound_format % (MpsBoundTypes.UP, variable.get_uid(), variable.get_upper_bound()))
 
         elif variable.get_upper_bound() <= 0:
-            bounds.append(bound_format % (MpsBoundTypes.MI.value, variable.get_uid(), ""))
+            bounds.append(bound_format % (MpsBoundTypes.MI, variable.get_uid(), ""))
 
             if variable.get_lower_bound() > -float("inf"):
                 variable.set_lower_bound_constraint()
@@ -73,7 +73,7 @@ class MpsWriter(BaseObject):
                 variable.set_upper_bound_constraint()
 
         else:
-            bounds.append(bound_format % (MpsBoundTypes.FR.value, variable.get_uid(), ""))
+            bounds.append(bound_format % (MpsBoundTypes.FR, variable.get_uid(), ""))
 
             if variable.get_lower_bound() > -float("inf"):
                 variable.set_lower_bound_constraint()
@@ -95,7 +95,7 @@ class MpsWriter(BaseObject):
         file.write("ROWS\n N  obj\n")
 
         for (index, constraint) in enumerate(model.get_constraints()):
-            constraint.set_uid("c" + self._index_parser(index))
+            constraint.set_uid("c" + self._index_serializer.serialize(index))
             file.write(" %s  %s\n" % (constraint.get_type().to_mps(), constraint.get_uid()))
 
     def _write_columns(self, file, model):
@@ -109,24 +109,24 @@ class MpsWriter(BaseObject):
             inverse = False
 
         for (column_index, variable) in enumerate(model.get_variables()):
-            key = "x" + self._index_parser(column_index)
+            key = "x" + self._index_serializer.serialize(column_index)
             model.set_variable_key(variable, key)
 
             if variable.is_in_objective():
                 new_line = False
-                file.write("    %s  obj       %s" % (key, self._value_parser(objective[variable])))
+                file.write("    %s  obj       %s" % (key, self._number_serializer.serialize(objective[variable])))
             else:
                 new_line = True
 
             for constraint in variable.get_constraints():
                 if new_line:
                     file.write(
-                        "    %s  %s  %s" % (key, constraint.get_uid(), self._value_parser(constraint[variable]))
+                        "    %s  %s  %s" % (key, constraint.get_uid(), self._number_serializer.serialize(constraint[variable]))
                     )
                     new_line = False
 
                 else:
-                    file.write("   %s  %s\n" % (constraint.get_uid(), self._value_parser(constraint[variable])))
+                    file.write("   %s  %s\n" % (constraint.get_uid(), self._number_serializer.serialize(constraint[variable])))
                     new_line = True
 
             if not new_line:
@@ -142,11 +142,11 @@ class MpsWriter(BaseObject):
         for (index, constraint) in enumerate(model.get_constraints()):
             if new_line:
                 file.write(
-                    "    rhs       %s  %s" % (constraint.get_uid(), self._value_parser(constraint.get_constant()))
+                    "    rhs       %s  %s" % (constraint.get_uid(), self._number_serializer.serialize(constraint.get_constant()))
                 )
                 new_line = False
             else:
-                file.write("   %s  %s\n" % (constraint.get_uid(), self._value_parser(constraint.get_constant())))
+                file.write("   %s  %s\n" % (constraint.get_uid(), self._number_serializer.serialize(constraint.get_constant())))
                 new_line = True
 
         if not new_line:
@@ -156,7 +156,7 @@ class MpsWriter(BaseObject):
         file.write("BOUNDS\n")
 
         for (index, variable) in enumerate(model.get_variables()):
-            index = "x" + self._index_parser(index)
+            index = "x" + self._index_serializer.serialize(index)
             variable.set_uid(index)
             bounds = self._get_bounds(variable)
 
