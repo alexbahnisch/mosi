@@ -1,37 +1,38 @@
 #!/usr/bin/env python
-from os import remove
+from os import remove as _remove
 
-from ..format import CplexSolutionFile, CplexSolutionReader, LpWriter, MpsWriter
-from .base import FileTypes, CliSolver
+from ..format import CplexSolutionReader as _CplexSolutionReader, LPWriter as _LPWriter, MPSWriter as _MPSWriter
+from .cli import FileTypes as _FileTypes, CliSolver as _CliSolver
 
 
-class CplexCliSolver(CliSolver):
+class CplexCliSolver(_CliSolver):
+    __HELP__ = "help"
+    __EXE__ = "cplex"
+
     def __init__(self, path, file_type="mps"):
-        file_type = FileTypes.parse(file_type)
+        file_type = _FileTypes.parse(file_type)
 
-        if file_type == FileTypes.lp:
-            super().__init__(path=path, model_writer=LpWriter(), solution_reader=CplexSolutionReader())
-        elif file_type == FileTypes.mps:
-            super().__init__(path=path, model_writer=MpsWriter(), solution_reader=CplexSolutionReader())
+        if file_type == _FileTypes.lp:
+            super().__init__(path=path, model_writer_class=_LPWriter, solution_reader_class=_CplexSolutionReader)
+        elif file_type == _FileTypes.mps:
+            super().__init__(path=path, model_writer_class=_MPSWriter, solution_reader_class=_CplexSolutionReader)
         else:
-            super().__init__(path=path, model_writer=MpsWriter(), solution_reader=CplexSolutionReader())
+            super().__init__(path=path, model_writer_class=_MPSWriter, solution_reader_class=_CplexSolutionReader)
 
-    def solve(self, model, directory=None, name=None, delete=True, message_callback=print, **kwargs):
-        self._model_writer.set(directory, name, delete)
-        self._solution_reader.set(model)
+    def _run(self, args, message_callback):
+        args = ["-c", *args, "quit"]
+        super()._run(args, message_callback)
 
-        model_file = self._model_writer(model)
-        solution_file = CplexSolutionFile(model, model_file.get_directory(), model_file.get_name(), delete)
+    def solve(self, model, directory=None, name=None, delete=True, message_callback=print, *cli_args):
+        self._pre_solve(directory, name, delete)
 
-        args = [
-            self.get_path(), "-c",
-            "read", model_file.get_path(),
+        cli_args = [
+            "read", self._model_writer.get_path(),
             *self._cli_args,
+            *cli_args,
             "optimize",
-            "write", solution_file.get_path(), "y",
-            "quit"
+            "write", self._solution_reader.get_path(), "y",
         ]
 
-        self._run(args, message_callback)
-        remove("cplex.log")
-        self._solution_reader(solution_file)
+        self._solve(model, cli_args, message_callback)
+        _remove("cplex.log")

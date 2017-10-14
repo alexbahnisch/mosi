@@ -2,10 +2,12 @@
 from copy import copy
 from io import StringIO
 
-from ..common import BaseObject, BaseEnum, ModelFile, ObjectiveType, IndexSerializer, NumberSerializer
+from ... import common as _c
+from .base import ModelWriter as _ModelWriter
 
 
-class MpsBoundTypes(BaseEnum):
+# noinspection PyClassHasNoInit
+class MpsBoundTypes(_c.BaseEnum):
     LO = "LO"
     UP = "UP"
     FX = "FX"
@@ -13,25 +15,17 @@ class MpsBoundTypes(BaseEnum):
     MI = "MI"
 
 
-class MpsFile(ModelFile):
+class MPSWriter(_ModelWriter):
 
-    def __init__(self, model, directory=None, name=None, delete=True):
-        super().__init__(model, directory, name, ".mps", delete)
+    def __init__(self, directory=None, name=None, delete=True):
+        super().__init__(directory, name, ".mps", delete)
+        self._index_serializer = _c.IndexSerializer(length=7, capitals=True)
+        self._number_serializer = _c.NumberSerializer(length=12, capitals=True, tolerance=10 ** -10)
 
-
-class MpsWriter(BaseObject):
-
-    def __init__(self, index_parser=IndexSerializer(), value_parser=NumberSerializer()):
-        self._index_serializer = index_parser
-        self._number_serializer = value_parser
-        self._get_model_file = lambda model: MpsFile(model)
-
-    def __call__(self, model):
-        model_file = self._get_model_file(model)
-
+    def write(self, model):
         variables_file = StringIO()
 
-        with model_file.write() as file:
+        with self._path.write() as file:
             self._write_prefix(file, model)
             self._write_variables(variables_file, model)
             self._write_rows(file, model)
@@ -41,8 +35,6 @@ class MpsWriter(BaseObject):
             self._write_suffix(file)
 
         variables_file.close()
-
-        return model_file
 
     @staticmethod
     def _get_bounds(variable):
@@ -102,7 +94,7 @@ class MpsWriter(BaseObject):
         file.write("COLUMNS\n")
         objective = copy(model.get_objective())
 
-        if objective.get_type() == ObjectiveType.MAX:
+        if objective.get_type() == _c.ObjectiveType.MAX:
             _ = ~objective
             inverse = True
         else:
@@ -162,7 +154,3 @@ class MpsWriter(BaseObject):
 
             for bound in bounds:
                 file.write(bound)
-
-    def set(self, directory=None, name=None, delete=True):
-        self._get_model_file = lambda model: MpsFile(model, directory, name, delete)
-        return self

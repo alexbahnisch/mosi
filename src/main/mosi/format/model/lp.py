@@ -1,25 +1,18 @@
 #!/usr/bin/env python
 from io import StringIO
 
-from ..common import BaseObject, ModelFile
+from .base import ModelWriter as _ModelWriter
 
 
-class LpFile(ModelFile):
+class LPWriter(_ModelWriter):
 
-    def __init__(self, model, directory=None, name=None, delete=True):
-        super().__init__(model, directory, name, ".lp", delete)
+    def __init__(self, directory=None, name=None, delete=True):
+        super().__init__(directory, name, ".lp", delete)
 
-
-class LpWriter(BaseObject):
-
-    def __init__(self):
-        self._get_model_file = lambda model: LpFile(model)
-
-    def __call__(self, model):
-        model_file = self._get_model_file(model)
+    def write(self, model):
         variable_file = StringIO()
 
-        with model_file.write() as file:
+        with self._path.write() as file:
             self._write_prefix(file, model)
             self._write_variables(variable_file, model)
             self._write_objective(file, model)
@@ -28,8 +21,6 @@ class LpWriter(BaseObject):
             self._write_suffix(file)
 
         variable_file.close()
-
-        return model_file
 
     @staticmethod
     def _get_bounds(variable):
@@ -108,7 +99,3 @@ class LpWriter(BaseObject):
             model.set_variable_key(variable, key)
             bounds, variable_type = self._get_bounds(variable)
             file.write(bounds)
-
-    def set(self, directory=None, name=None, delete=True):
-        self._get_model_file = lambda model: LpFile(model, directory, name, delete)
-        return self

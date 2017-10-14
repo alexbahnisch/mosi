@@ -6,10 +6,7 @@ name = "pypi"
 [packages]
 pyplus = "*"
 
-
-
 [dev-packages]
-
 coverage = "*"
 pypandoc = "*"
 pytest = "*"

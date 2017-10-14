@@ -8,7 +8,17 @@ class BaseObject:
         if isinstance(instance, cls):
             return instance
         else:
-            raise TypeError("'%s' is not an instance of '%s'" % (instance, cls.__name__))
+            raise TypeError("'%s' is not an instance of '%s'" % (type(instance).__name__, cls.__name__))
+
+    @classmethod
+    def issubclass(cls, clazz):
+        try:
+            if issubclass(clazz, cls):
+                return clazz
+            else:
+                raise TypeError("'%s' is not an subclass of '%s'" % (clazz.__name__, cls.__name__))
+        except TypeError:
+            raise TypeError("instance of '%s' is not an subclass of '%s'" % (type(clazz).__name__, cls.__name__))
 
 
 class BaseConstraint(BaseObject):

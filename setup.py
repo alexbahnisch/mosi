@@ -30,8 +30,6 @@ setup(
         "Natural Language :: English",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
@@ -42,7 +40,7 @@ setup(
     package_dir={"": "src/main"},
     python_requires=">=3.5",
     install_requires=[
-        "pyplus>=0.1.2,<0.2"
+        "pyplus>=0.1.4"
     ],
     setup_requires=[
         "pypandoc>=1.4<2"

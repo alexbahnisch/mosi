@@ -1,8 +1,3 @@
 #!/usr/bin/env python
-from .lp import LpFile, LpWriter
-from .lps import LpsVariableType, LpsWriter
-from .mps import MpsFile, MpsWriter
-from .solution import (
-    CplexSolutionFile, CplexSolutionReader, CbcSolutionReader, CbcSolutionFile,
-    GlpkSolutionFile, GlpkSolutionReader, LpSolveSolutionFile, LpSolveSolutionReader, TxtSolutionReader
-)
+from .model import LPWriter, LPSVariableType, LPSWriter, MPSWriter, ModelWriter
+from .solution import CBCSolutionReader, CplexSolutionReader, GLPKSolutionReader, LPSolveSolutionReader, SolutionReader

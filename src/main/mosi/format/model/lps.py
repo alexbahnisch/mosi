@@ -1,27 +1,27 @@
 #!/usr/bin/env python
 from io import StringIO
 
-from ..common import BaseEnum, BaseObject
-from .lp import LpFile
+from ...common import BaseEnum as _BaseEnum
+from .base import ModelWriter as _ModelWriter
 
 
-class LpsVariableType(BaseEnum):
+# noinspection PyClassHasNoInit
+class LPSVariableType(_BaseEnum):
     FREE = "free"
 
     def __str__(self):
         return self.value
 
 
-class LpsWriter(BaseObject):
+class LPSWriter(_ModelWriter):
 
-    def __init__(self):
-        self._get_model_file = lambda model: LpFile(model)
+    def __init__(self, directory=None, name=None, delete=True):
+        super().__init__(directory, name, ".lp", delete)
 
-    def __call__(self, model):
-        model_file = self._get_model_file(model)
+    def write(self, model):
         variable_file = StringIO()
 
-        with model_file.write() as file:
+        with self._path.write() as file:
             self._write_prefix(file, model)
             self._write_variables(variable_file, model)
             self._write_objective(file, model)
@@ -30,8 +30,6 @@ class LpsWriter(BaseObject):
             self._write_suffix(file)
 
         variable_file.close()
-
-        return model_file
 
     @staticmethod
     def _get_bounds(variable):
@@ -42,7 +40,7 @@ class LpsWriter(BaseObject):
             bounds = "%s = %s;\n" % (variable.get_uid(), variable.get_value())
 
         elif variable.get_lower_bound() == -float("inf") and variable.get_upper_bound() == float("inf"):
-            variable_type = LpsVariableType.FREE
+            variable_type = LPSVariableType.FREE
 
         elif variable.get_lower_bound() != 0 and variable.get_upper_bound() < float("inf"):
             bounds = "%s <= %s <= %s;\n" % (variable.get_lower_bound(), variable.get_uid(), variable.get_upper_bound())
@@ -103,7 +101,7 @@ class LpsWriter(BaseObject):
 
     def _write_variables(self, file, model):
         file.write("/* BOUNDS */\n")
-        variables_map = {variable_type: [str(variable_type) + " "] for variable_type in LpsVariableType}
+        variables_map = {variable_type: [str(variable_type) + " "] for variable_type in LPSVariableType.__members__}
         variables = model.get_variables()
 
         for (index, variable) in enumerate(variables):
@@ -112,15 +110,11 @@ class LpsWriter(BaseObject):
             bounds, variable_type = self._get_bounds(variable)
             file.write(bounds)
 
-            if variable_type in LpsVariableType:
+            if variable_type in LPSVariableType:
                 variables_map[variable_type].append(key)
                 variables_map[variable_type].append(", ")
 
-        for variable_type in LpsVariableType:
+        for variable_type in LPSVariableType.__members__:
             if len(variables_map[variable_type]) > 1:
                 variables_map[variable_type][-1] = ";\n"
                 file.write("".join(variables_map[variable_type]))
-
-    def set(self, directory=None, name=None, delete=True):
-        self._get_model_file = lambda model: LpFile(model, directory, name, delete)
-        return self
