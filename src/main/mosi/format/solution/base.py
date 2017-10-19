@@ -1,6 +1,7 @@
 from ...common import BaseModel as _BaseModel, ModelFile as _ModelFile
 
 
+# noinspection PyClassHasNoInit
 class SolutionReader(_ModelFile):
     __KEYPARSER__ = str
     __VALUEPARSER__ = float
@@ -13,6 +14,7 @@ class SolutionReader(_ModelFile):
         return self.__STATUS__[str(status)]
 
 
+# noinspection PyClassHasNoInit
 class TxtSolutionReader(SolutionReader):
     __DELIMITER__ = " "
     __NEWLINE__ = "\n"

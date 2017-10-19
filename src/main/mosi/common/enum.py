@@ -96,8 +96,8 @@ class VariableType(BaseEnum):
     __FLOAT__ = {FLOAT, SEMI_CONTINUOUS}
     __INTEGER__ = {BINARY, INTEGER, SEMI_CONTINUOUS, SEMI_INTEGER}
 
-    def get_parser(self):
+    def parse_solution(self, string):
         if self.value in self.__FLOAT__:
-            return lambda value: float(value)
+            return float(string)
         else:
-            return lambda value: round(float(value))
+            return round(float(string))

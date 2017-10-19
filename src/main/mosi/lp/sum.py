@@ -9,7 +9,7 @@ class LinearSum(BaseSum):
 
     def __init__(self, model, coefficient_map, constant=0):
         self._model = BaseModel.isinstance(model)
-        self._map = CoefficientMap.parse(coefficient_map)
+        self._map = CoefficientMap.new(coefficient_map)
         self._const = float(constant)
 
     def __iter__(self):

@@ -6,3 +6,4 @@ from .file import ModelFile
 from .map import CoefficientMap
 from .novalue import NoValue, NoValue
 from .serialize import IndexSerializer, NumberSerializer
+from .utils import make_dict, make_list, make_tuple_dict

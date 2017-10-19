@@ -14,7 +14,7 @@ class LinearConstraint(BaseConstraint):
             self._type = ~ConstraintType.parse(constraint_type)
 
         else:
-            self._map = CoefficientMap.parse(lhs_map)
+            self._map = CoefficientMap.new(lhs_map)
             self._const = float(rhs_constant)
             self._type = ConstraintType.parse(constraint_type)
 

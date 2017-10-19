@@ -1,18 +1,13 @@
 #!/usr/bin/env python
-from copy import copy
+from collections import defaultdict
 
 from .base import BaseSum, BaseVariable
 
 
-class CoefficientMap(dict):
+class CoefficientMap(defaultdict):
 
     def __init__(self):
-        super().__init__([])
-
-    def __getitem__(self, item):
-        if item not in self:
-            self[item] = float()
-        return super().__getitem__(item)
+        super().__init__(float)
 
     def __add__(self, other):
         if isinstance(other, (BaseSum, CoefficientMap)):
@@ -28,7 +23,7 @@ class CoefficientMap(dict):
             return self
         else:
             # TODO - raise better exception
-            raise Exception("TODO - raise better exception")
+            raise Exception("TODO - raise better exception - fnbvskjfeifhseknfe")
 
     def __sub__(self, other):
         if isinstance(other, (BaseSum, CoefficientMap)):
@@ -47,9 +42,9 @@ class CoefficientMap(dict):
             raise Exception("TODO - raise better exception")
 
     @classmethod
-    def parse(cls, dictionary):
+    def new(cls, dictionary):
         if isinstance(dictionary, CoefficientMap):
-            return copy(dictionary)
+            return dictionary
         elif isinstance(dictionary, dict):
             instance = cls()
             for key in dictionary:
@@ -57,4 +52,4 @@ class CoefficientMap(dict):
             return instance
         else:
             # TODO - raise better exception
-            raise Exception("TODO - raise better exception")
+            raise Exception("TODO - raise better exception - fdsajdgfdgsfshfju")

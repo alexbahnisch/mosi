@@ -5,7 +5,10 @@
 .tox
 build
 dist
+volume
+pandoc-1.19.2.1-windows.msi
 
 # wildcards:
 !**.gitkeep
 **.egg-info
+**.whl

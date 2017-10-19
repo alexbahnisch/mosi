@@ -12,7 +12,7 @@ from init import (
 
 
 DELETE = True
-DIRECTORY = None  # "../../../volume/results/lp"
+DIRECTORY = "../../../volume/results/lp"
 OBJECTIVE = 180
 SOLUTION = [20, 60]
 TOLERANCE = 10 ** -8
@@ -20,12 +20,12 @@ TOLERANCE = 10 ** -8
 
 # noinspection PyStatementEffect
 def setup():
-    rmtree("../../../volume/results/lp", True)
+    rmtree(DIRECTORY, True)
 
     model = Model(auto=True)
 
     x = {
-        1: DecisionVariable(model, upper_bound=40),
+        1: DecisionVariable(model, max=40),
         2: DecisionVariable(model)
     }
 
@@ -42,65 +42,65 @@ def setup():
 def run_cbc_lp(problem):
     CBC_LP_SOLVER.solve(problem.model, directory=DIRECTORY, delete=DELETE)
 
-    assert problem.model.get_objective().get_value(), OBJECTIVE
+    assert problem.model.get_objective().get_value() == OBJECTIVE
     assert all(abs(var.get_value() - sol) < TOLERANCE for var, sol in zip(problem.vars, SOLUTION))
-    assert problem.model.get_status(), ModelStatus.OPTIMAL
+    assert problem.model.get_status() == ModelStatus.OPTIMAL
 
 
 def run_cbc_mps(problem):
     CBC_MPS_SOLVER.solve(problem.model, directory=DIRECTORY, delete=DELETE)
 
-    assert problem.model.get_objective().get_value(), OBJECTIVE
+    assert problem.model.get_objective().get_value() == OBJECTIVE
     assert all(abs(var.get_value() - sol) < TOLERANCE for var, sol in zip(problem.vars, SOLUTION))
-    assert problem.model.get_status(), ModelStatus.OPTIMAL
+    assert problem.model.get_status() == ModelStatus.OPTIMAL
 
 
 def run_cplex_lp(problem):
     CPLEX_LP_SOLVER.solve(problem.model, directory=DIRECTORY, delete=DELETE)
 
-    assert problem.model.get_objective().get_value(), OBJECTIVE
+    assert problem.model.get_objective().get_value() == OBJECTIVE
     assert all(abs(var.get_value() - sol) < TOLERANCE for var, sol in zip(problem.vars, SOLUTION))
-    assert problem.model.get_status(), ModelStatus.OPTIMAL
+    assert problem.model.get_status() == ModelStatus.OPTIMAL
 
 
 def run_cplex_mps(problem):
     CPLEX_MPS_SOLVER.solve(problem.model, directory=DIRECTORY, delete=DELETE)
 
-    assert problem.model.get_objective().get_value(), OBJECTIVE
+    assert problem.model.get_objective().get_value() == OBJECTIVE
     assert all(abs(var.get_value() - sol) < TOLERANCE for var, sol in zip(problem.vars, SOLUTION))
-    assert problem.model.get_status(), ModelStatus.OPTIMAL
+    assert problem.model.get_status() == ModelStatus.OPTIMAL
 
 
 def run_glpk_lp(problem):
     GLPK_LP_SOLVER.solve(problem.model, directory=DIRECTORY, delete=DELETE)
 
-    assert problem.model.get_objective().get_value(), OBJECTIVE
+    assert problem.model.get_objective().get_value() == OBJECTIVE
     assert all(abs(var.get_value() - sol) < TOLERANCE for var, sol in zip(problem.vars, SOLUTION))
-    assert problem.model.get_status(), ModelStatus.OPTIMAL
+    assert problem.model.get_status() == ModelStatus.OPTIMAL
 
 
 def run_glpk_mps(problem):
     GLPK_MPS_SOLVER.solve(problem.model, directory=DIRECTORY, delete=DELETE)
 
-    assert problem.model.get_objective().get_value(), OBJECTIVE
+    assert problem.model.get_objective().get_value() == OBJECTIVE
     assert all(abs(var.get_value() - sol) < TOLERANCE for var, sol in zip(problem.vars, SOLUTION))
-    assert problem.model.get_status(), ModelStatus.OPTIMAL
+    assert problem.model.get_status() == ModelStatus.OPTIMAL
 
 
 def run_lp_solve_lp(problem):
     LP_SOLVER_LP_SOLVER.solve(problem.model, directory=DIRECTORY, delete=DELETE)
 
-    assert problem.model.get_objective().get_value(), OBJECTIVE
+    assert problem.model.get_objective().get_value() == OBJECTIVE
     assert all(abs(var.get_value() - sol) < TOLERANCE for var, sol in zip(problem.vars, SOLUTION))
-    assert problem.model.get_status(), ModelStatus.OPTIMAL
+    assert problem.model.get_status() == ModelStatus.OPTIMAL
 
 
 def run_lp_solve_mps(problem):
     LP_SOLVER_MPS_SOLVER.solve(problem.model, directory=DIRECTORY, delete=DELETE)
 
-    assert problem.model.get_objective().get_value(), OBJECTIVE
+    assert problem.model.get_objective().get_value() == OBJECTIVE
     assert all(abs(var.get_value() - sol) < TOLERANCE for var, sol in zip(problem.vars, SOLUTION))
-    assert problem.model.get_status(), ModelStatus.OPTIMAL
+    assert problem.model.get_status() == ModelStatus.OPTIMAL
 
 
 def run_infeasible_problem():

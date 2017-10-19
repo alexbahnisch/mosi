@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-from pyplus.singleton import singleton as _singleton
+from pyplus.singleton import Singleton as _Singleton
 
 from .base import BaseObject as _BaseObject
 
 
 # noinspection PyClassHasNoInit
-class NoValueType(_BaseObject):
+class NoValueType(_BaseObject, metaclass=_Singleton):
 
     def __abs__(self):
         return self

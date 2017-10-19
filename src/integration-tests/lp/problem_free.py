@@ -10,8 +10,8 @@ from init import (
     GLPK_LP_SOLVER, GLPK_MPS_SOLVER, LP_SOLVER_LP_SOLVER, LP_SOLVER_MPS_SOLVER, Problem
 )
 
-DELETE = True
-DIRECTORY = None  # "../../../volume/results/lp"
+DELETE = False
+DIRECTORY = "../../../volume/results/lp"
 OBJECTIVE = 140
 SOLUTION = [-40.0, -110.0, 0.0]
 TOLERANCE = 10 ** -8
@@ -19,13 +19,13 @@ TOLERANCE = 10 ** -8
 
 # noinspection PyStatementEffect
 def setup():
-    rmtree("../../../volume/results/lp", True)
+    rmtree(DIRECTORY, True)
 
     model = Model(auto=True)
 
     x = {
-        1: DecisionVariable(model, lower_bound=-40),
-        2: DecisionVariable(model, lower_bound=-float("inf")),
+        1: DecisionVariable(model, min=-40),
+        2: DecisionVariable(model, min=-float("inf")),
         3: DecisionVariable(model)
     }
 

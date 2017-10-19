@@ -33,7 +33,7 @@ class CbcCliSolver(_CliSolver):
             super()._set_solver_path(path)
 
     def solve(self, model, directory=None, name=None, delete=True, message_callback=print, *cli_args):
-        self._pre_solve(directory, name, delete)
+        self._pre_solve(model, directory, name, delete)
 
         cli_args = [
             self._model_writer.get_path(),

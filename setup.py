@@ -40,7 +40,7 @@ setup(
     package_dir={"": "src/main"},
     python_requires=">=3.5",
     install_requires=[
-        "pyplus>=0.1.4"
+        "pyplus>=0.1.5"
     ],
     setup_requires=[
         "pypandoc>=1.4<2"

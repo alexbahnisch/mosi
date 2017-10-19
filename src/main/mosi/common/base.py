@@ -27,6 +27,9 @@ class BaseConstraint(BaseObject):
 
 class BaseModel(BaseObject):
 
+    def get_name(self):
+        pass
+
     def set_status(self, status):
         pass
 

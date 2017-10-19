@@ -19,7 +19,7 @@ TOLERANCE = 10 ** -8
 
 
 def setup():
-    rmtree("../../../volume/results", True)
+    rmtree(DIRECTORY, True)
 
     model = Model()
 
@@ -101,7 +101,7 @@ def run_lp_solve_mps(problem):
     assert problem.model.get_status() == ModelStatus.OPTIMAL
 
 
-def run_infeasible_problem():
+def run_min_problem():
     problem = setup()
     run_cbc_lp(problem)
 
@@ -128,4 +128,4 @@ def run_infeasible_problem():
 
 
 if __name__ == "__main__":
-    run_infeasible_problem()
+    run_min_problem()

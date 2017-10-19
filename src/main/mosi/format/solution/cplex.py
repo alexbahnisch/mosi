@@ -12,7 +12,7 @@ class CplexSolutionReader(SolutionReader):
     def __init__(self, directory=None, name=None, delete=True):
         super().__init__(directory, name, ".sol", delete)
 
-    def write(self, model):
+    def read(self, model):
         model = _BaseModel.isinstance(model)
 
         try:

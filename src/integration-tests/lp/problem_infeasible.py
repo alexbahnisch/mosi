@@ -11,8 +11,8 @@ from init import (
 )
 
 
-DELETE = True
-DIRECTORY = None  # "../../../volume/results/lp"
+DELETE = False
+DIRECTORY = "../../../volume/results/lp"
 CBC_OBJECTIVE = 130
 GLPK_OBJECTIVE = 0
 OBJECTIVE = NoValue
@@ -23,13 +23,13 @@ TOLERANCE = 10 ** -8
 
 
 def setup():
-    rmtree("../../../volume/results/lp", True)
+    rmtree(DIRECTORY, True)
 
     model = Model(auto=True)
 
     x = {
-        1: DecisionVariable(model, lower_bound=30, upper_bound=40),
-        2: DecisionVariable(model, lower_bound=20)
+        1: DecisionVariable(model, min=30, max=40),
+        2: DecisionVariable(model, min=20)
     }
 
     model.max(

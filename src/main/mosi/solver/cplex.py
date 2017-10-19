@@ -9,7 +9,7 @@ class CplexCliSolver(_CliSolver):
     __HELP__ = "help"
     __EXE__ = "cplex"
 
-    def __init__(self, path, file_type="mps"):
+    def __init__(self, path=None, file_type="mps"):
         file_type = _FileTypes.parse(file_type)
 
         if file_type == _FileTypes.lp:
@@ -24,7 +24,7 @@ class CplexCliSolver(_CliSolver):
         super()._run(args, message_callback)
 
     def solve(self, model, directory=None, name=None, delete=True, message_callback=print, *cli_args):
-        self._pre_solve(directory, name, delete)
+        self._pre_solve(model, directory, name, delete)
 
         cli_args = [
             "read", self._model_writer.get_path(),

@@ -66,7 +66,11 @@ class CliSolver(_BaseObject):
                 message_callback(stdout)
             stdout = process.stdout.readline()
 
-    def _pre_solve(self, directory, name, delete):
+    def _pre_solve(self, model, directory, name, delete):
+        if name is None:
+            name = model.get_name()
+        name += "-"
+
         self._model_writer = self._model_writer_class(directory=directory, name=name, delete=delete)
         self._solution_reader = self._solution_reader_class(directory=directory, name=name, delete=delete)
 

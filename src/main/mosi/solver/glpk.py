@@ -13,7 +13,7 @@ class GlpkCliSolver(_CliSolver):
             super().__init__("--mps", path=path, model_writer_class=_MPSWriter, solution_reader_class=_GLPKSolutionReader)
 
     def solve(self, model, directory=None, name=None, delete=True, message_callback=print, **cli_args):
-        self._pre_solve(directory, name, delete)
+        self._pre_solve(model, directory, name, delete)
 
         cli_args = [
             self._model_writer.get_path(),
@@ -22,4 +22,4 @@ class GlpkCliSolver(_CliSolver):
             "--output", self._solution_reader.get_path()
         ]
 
-        self._solver(model, cli_args, message_callback)
+        self._solve(model, cli_args, message_callback)
