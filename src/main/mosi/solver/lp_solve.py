@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from subprocess import Popen
+from subprocess import Popen, run
 
 from ..format import LPSolveSolutionReader as _LPSolveSolutionReader, LPSWriter as _LPSWriter, MPSWriter as _MPSWriter
 from .cli import FileTypes as _FileTypes, CliSolver as _CliSolver
@@ -21,12 +21,17 @@ class LpSolveCliSolver(_CliSolver):
         self._pre_solve(model, directory, name, delete)
 
         cli_args = [
+            self.get_path(),
             self._model_writer.get_path(),
             *self._cli_args,
             *cli_args
         ]
 
-        with self._solution_reader.path.write() as output_file:
-            Popen(cli_args, executable=self.get_path(), stdout=output_file).wait()
+        self._model_writer.write(model)
 
-        self._solution_reader_class.read(model)
+        with self._solution_reader.path.write() as output_file:
+            Popen(cli_args, stdout=output_file).wait()
+
+        self._solution_reader.read(model)
+        self._model_writer.delete()
+        self._solution_reader.delete()

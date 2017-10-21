@@ -2,7 +2,7 @@
 from shutil import rmtree
 
 from mosi.common import ModelStatus, NoValue
-from mosi.lp import Model, DecisionVariable
+from mosi.lp import Model, FloatVariable
 
 # noinspection PyPackageRequirements,PyUnresolvedReferences
 from init import (
@@ -11,7 +11,7 @@ from init import (
 )
 
 
-DELETE = False
+DELETE = True
 DIRECTORY = "../../../volume/results/lp"
 CBX_OBJECTIVE = 3.3333333
 GLPK_OBJECTIVE = 0
@@ -27,7 +27,7 @@ def setup():
 
     model = Model()
 
-    x = {1: DecisionVariable(model), 2: DecisionVariable(model)}
+    x = {1: FloatVariable(model), 2: FloatVariable(model)}
 
     model.max(
         2 * x[1] - x[2]
@@ -129,6 +129,8 @@ def run_infeasible_problem():
 
     problem.clear()
     run_lp_solve_mps(problem)
+
+    print("done :)")
 
 
 if __name__ == "__main__":

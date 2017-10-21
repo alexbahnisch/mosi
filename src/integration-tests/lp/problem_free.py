@@ -2,7 +2,7 @@
 from shutil import rmtree
 
 from mosi.common import ModelStatus
-from mosi.lp import Model, DecisionVariable
+from mosi.lp import Model, FloatVariable
 
 # noinspection PyPackageRequirements,PyUnresolvedReferences
 from init import (
@@ -10,7 +10,7 @@ from init import (
     GLPK_LP_SOLVER, GLPK_MPS_SOLVER, LP_SOLVER_LP_SOLVER, LP_SOLVER_MPS_SOLVER, Problem
 )
 
-DELETE = False
+DELETE = True
 DIRECTORY = "../../../volume/results/lp"
 OBJECTIVE = 140
 SOLUTION = [-40.0, -110.0, 0.0]
@@ -24,9 +24,9 @@ def setup():
     model = Model(auto=True)
 
     x = {
-        1: DecisionVariable(model, min=-40),
-        2: DecisionVariable(model, min=-float("inf")),
-        3: DecisionVariable(model)
+        1: FloatVariable(model, min=-40),
+        2: FloatVariable(model, min=-float("inf")),
+        3: FloatVariable(model)
     }
 
     model.max(
@@ -37,7 +37,7 @@ def setup():
     3 * x[1] - 2 * x[2] + 2 * x[3] <= 100
     x[1] + x[2] + x[3] <= 40
 
-    return Problem(model, x.values())
+    return Problem(model, list(x.values()))
 
 
 def run_cbc_lp(problem):
@@ -129,6 +129,7 @@ def run_free_problem():
     problem.clear()
     run_lp_solve_mps(problem)
 
+    print("done :)")
 
 if __name__ == "__main__":
     run_free_problem()

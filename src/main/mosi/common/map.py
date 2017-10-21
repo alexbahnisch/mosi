@@ -14,9 +14,6 @@ class CoefficientMap(defaultdict):
             for key in other:
                 self[key] += float(other[key])
             return self
-        elif isinstance(other, BaseVariable):
-            self[other] += 1
-            return self
         elif isinstance(other, dict):
             for key in other:
                 self[BaseVariable.isinstance(key)] += float(other[key])
@@ -30,16 +27,13 @@ class CoefficientMap(defaultdict):
             for key in other:
                 self[key] -= float(other[key])
             return self
-        elif isinstance(other, BaseVariable):
-            self[other] -= 1
-            return self
         elif isinstance(other, dict):
             for key in other:
                 self[BaseVariable.isinstance(key)] -= float(other[key])
             return self
         else:
             # TODO - raise better exception
-            raise Exception("TODO - raise better exception")
+            raise Exception("TODO - raise better exception - dasjfevheasdjegvtg")
 
     @classmethod
     def new(cls, dictionary):

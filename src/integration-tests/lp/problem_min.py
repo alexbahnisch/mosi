@@ -2,7 +2,7 @@
 from shutil import rmtree
 
 from mosi.common import ModelStatus
-from mosi.lp import Model, DecisionVariable
+from mosi.lp import Model, FloatVariable
 
 # noinspection PyPackageRequirements,PyUnresolvedReferences
 from init import (
@@ -11,8 +11,8 @@ from init import (
 )
 
 
-DELETE = False
-DIRECTORY = "../../../volume/results"
+DELETE = True
+DIRECTORY = "../../../volume/results/lp"
 OBJECTIVE = 320
 SOLUTION = [3.6, 1.4]
 TOLERANCE = 10 ** -8
@@ -23,7 +23,7 @@ def setup():
 
     model = Model()
 
-    x = {1: DecisionVariable(model), 2: DecisionVariable(model)}
+    x = {1: FloatVariable(model), 2: FloatVariable(model)}
 
     model.min(
         50 * x[1] + 100 * x[2]
@@ -126,6 +126,7 @@ def run_min_problem():
     problem.clear()
     run_lp_solve_mps(problem)
 
+    print("done :)")
 
 if __name__ == "__main__":
     run_min_problem()

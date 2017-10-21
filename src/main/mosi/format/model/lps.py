@@ -13,6 +13,7 @@ class LPSVariableType(_BaseEnum):
         return self.value
 
 
+# noinspection PyTypeChecker
 class LPSWriter(_ModelWriter):
 
     def __init__(self, directory=None, name=None, delete=True):
@@ -101,7 +102,7 @@ class LPSWriter(_ModelWriter):
 
     def _write_variables(self, file, model):
         file.write("/* BOUNDS */\n")
-        variables_map = {variable_type: [str(variable_type) + " "] for variable_type in LPSVariableType.__members__}
+        variables_map = {variable_type: [str(variable_type) + " "] for variable_type in LPSVariableType}
         variables = model.get_variables()
 
         for (index, variable) in enumerate(variables):
@@ -114,7 +115,7 @@ class LPSWriter(_ModelWriter):
                 variables_map[variable_type].append(key)
                 variables_map[variable_type].append(", ")
 
-        for variable_type in LPSVariableType.__members__:
+        for variable_type in LPSVariableType:
             if len(variables_map[variable_type]) > 1:
                 variables_map[variable_type][-1] = ";\n"
                 file.write("".join(variables_map[variable_type]))

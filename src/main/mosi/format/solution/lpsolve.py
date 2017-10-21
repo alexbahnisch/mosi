@@ -17,11 +17,11 @@ class LPSolveSolutionReader(_TxtSolutionReader):
         cells = [cell for cell in cells if cell != ""]
 
         try:
-            self._model.set_variable_value(self.__KEYPARSER__(cells[0]), self.__VALUEPARSER__(cells[1]))
+            model.set_variable_value(self.__KEYPARSER__(cells[0]), self.__VALUEPARSER__(cells[1]))
         except (ValueError, IndexError):
             pass
 
         try:
-            self._model.set_status(self._read_status(line.replace(self.__NEWLINE__, "")))
+            model.set_status(self._read_status(line.replace(self.__NEWLINE__, "")))
         except (KeyError, IndexError):
             pass

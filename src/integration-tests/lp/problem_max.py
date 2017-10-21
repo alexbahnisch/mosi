@@ -2,7 +2,7 @@
 from shutil import rmtree
 
 from mosi.common import ModelStatus
-from mosi.lp import Model, DecisionVariable
+from mosi.lp import Model, FloatVariable
 
 # noinspection PyPackageRequirements,PyUnresolvedReferences
 from init import (
@@ -25,8 +25,8 @@ def setup():
     model = Model(auto=True)
 
     x = {
-        1: DecisionVariable(model, max=40),
-        2: DecisionVariable(model)
+        1: FloatVariable(model, max=40),
+        2: FloatVariable(model)
     }
 
     model.max(
@@ -128,6 +128,7 @@ def run_infeasible_problem():
     problem.clear()
     run_lp_solve_mps(problem)
 
+    print("done :)")
 
 if __name__ == "__main__":
     run_infeasible_problem()
