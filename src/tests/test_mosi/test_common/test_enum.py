@@ -136,7 +136,7 @@ def test_variable_type_float_parser():
     var_types = [VariableType.FLOAT, VariableType.SEMI_CONTINUOUS]
 
     for var_type in var_types:
-        parser = var_type.get_parser()
+        parser = var_type.parse_solution
         for string, number in zip(strings, numbers):
             assert number == parser(string)
 
@@ -148,6 +148,6 @@ def test_variable_type_int_parser():
     var_types = [VariableType.INTEGER, VariableType.SEMI_INTEGER]
 
     for var_type in var_types:
-        parser = var_type.get_parser()
+        parser = var_type.parse_solution
         for string, number in zip(strings, numbers):
             assert number == parser(string)

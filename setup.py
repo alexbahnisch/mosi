@@ -17,7 +17,7 @@ if any(arg in argv for arg in ["sdist", "bdist_wheel"]):
 
 setup(
     name="mosi",
-    version="0.0.4.dev1",
+    version="0.0.4.dev2",
     description="Modelling & Optimization Solver Interface (MOSI).",
     url="https://github.com/alexbahnisch/mosi.py",
     author="Alex Bahnisch",
